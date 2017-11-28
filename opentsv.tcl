@@ -92,7 +92,8 @@ proc register_filetype {extension class name mime code {icon {}}} {
 	if {$error} {error $::errorInfo}
 }
 
-proc fileassoc {} {
+proc fileassoc {executable} {
+	if {$executable eq ""} {set executable [info nameofexecutable]}
 	foreach {ext mime name} {
 		csv "text/comma-separated-values" "Comma-Separated Value file"
 		tsv "text/tab-separated-values" "Tab-Separated Value file"
@@ -100,9 +101,73 @@ proc fileassoc {} {
 		tab "text/tab-separated-values" "Tab-Separated Value file"
 	} {
 		if {$::reg($ext)} {
-			register_filetype .$ext ${ext}file $name $mime "\"[file nativename [info nameofexecutable]]\" \"%1\""
+			register_filetype .$ext ${ext}file $name $mime "\"[file nativename $executable]\" \"%1\""
 		}
 	}
+}
+
+proc setinstalldir {dir} {
+	catch {raise .installd}
+	while {[file tail $dir] eq "opentsv"} {
+		set dir [file dir $dir]
+	}
+	set ::installdir [file join $dir opentsv]
+}
+
+proc install {} {
+	global installdir install env
+	set programfilesdir [registry get HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion ProgramFilesDir]
+	set installdir [file join $programfilesdir opentsv]
+	destroy .installd
+	toplevel .installd
+	wm title .installd Install
+	label .installd.info -text {This program does not have to be installed;
+It can also be run in place.
+This "ïnstallation" will only copy the folder it is in 
+to the installation folder and make the proper links.}
+	pack .installd.info -side top -fill x
+	frame .installd.browse
+	pack .installd.browse -side top -fill x -expand yes
+	entry .installd.browse.dir -textvariable installdir
+	pack .installd.browse.dir -side left -fill x -expand yes
+	button .installd.browse.browse -text Browse -command {setinstalldir [file join [tk_chooseDirectory -initialdir $::installdir] opentsv]}
+	pack .installd.browse.browse -side left
+	frame .installd.buttons
+	pack .installd.buttons -side top -fill x
+	button .installd.buttons.installd -text Install -command {set install 1 ; destroy .installd}
+	button .installd.buttons.cancel -text Cancel -command {set install 0 ; destroy .installd}
+	pack .installd.buttons.installd -side left -expand yes -pady 4
+	pack .installd.buttons.cancel -side left -expand yes -pady 4
+	raise .installd
+	tkwait window .installd
+	if {!$install} return
+	#
+	destroy .install
+	label .install
+	pack .install -side top -fill y
+	package require registry
+	package require dde
+	set source [file dir [info nameofexecutable]]
+	set text "Installing to $installdir"
+	.install configure -text $text ; update idletasks
+	file delete -force $installdir
+	file mkdir -force $installdir/apps
+	file mkdir -force $installdir/exts
+	file copy -force [file join $source opentsv.exe] $installdir
+	file copy -force [file join $source apps opentsv] $installdir/apps
+	file copy -force [file join $source lib] $installdir
+	file copy -force {*}[glob [file join $source *.dll]] $installdir
+	#
+	append text "\nAssociating files" ; .install configure -text $text ; update idletasks
+	set executable [file normalize $installdir/opentsv.exe]
+	set name [file tail [file root $executable]]
+	fileassoc $executable
+	#
+	append text "\nAdding to menu" ; .install configure -text $text ; update idletasks
+	catch {dde execute progman progman "\[DeleteGroup (OPENTSV)\]"}
+	catch {dde execute progman progman "\[CreateGroup (OPENTSV)\]"}
+	catch {dde execute progman progman "\[AddItem (\"[file nativename $executable]\",$name,\"\",0,0,0,$env(HOME))\]"}
+	append text "\nFinished" ; .install configure -text $text ; update idletasks
 }
 
 proc method {{method {}}} {
@@ -162,14 +227,21 @@ if {![llength $argv]} {
 	}
 	frame .b
 	pack .b -side top -fill x
+	set executable [info nameofexecutable]
 	button .b.filel \
 		-text "Register opentsv as default program for opening" \
-		-command fileassoc
+		-command [list fileassoc $executable]
 	pack .b.filel -side left
 	foreach {ext} {csv tsv tab tcsv} {
 		checkbutton .b.$ext -text $ext -variable reg($ext)
 		set ::reg($ext) 1
 		pack .b.$ext -side left
+	}
+	# install
+	set programfilesdir [registry get HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion ProgramFilesDir]
+	if {[file normalize [info nameofexecutable]] ne [file normalize $programfilesdir/opentsv/opentsv.exe]} {
+		button .b.install -command install -text Install
+		pack .b.install -side left
 	}
 	# exit
 	button .b.exit -command exit -text Exit
