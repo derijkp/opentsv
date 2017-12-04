@@ -65,6 +65,8 @@ Copyright (c) 2017 Peter De Rijk (VIB - University of Antwerp)
 Available under MIT license
 }
 
+package require tcom
+
 proc register_filetype {extension class name mime code {icon {}}} {
 	package require registry
 	set error 1
@@ -179,9 +181,11 @@ proc method {{method {}}} {
 	}
 	return $method
 }
+
 set method [method]
 
-if {![llength $argv]} {
+proc interface {} {
+	global workbooks
 	# interface if no file is give
 	package require Tk
 	wm title . Opentsv
@@ -194,12 +198,21 @@ if {![llength $argv]} {
 	pack .msglabel -side top -fill x
 	frame .msg
 	text .msg.t -yscrollcommand {.msg.s set} -height 20
-	.msg.t insert end $help
+	.msg.t insert end $::help
 	scrollbar .msg.s -command {.msg.t yview}
 	pack .msg.t -side left -fill both -expand yes
 	pack .msg.s -side left -fill y
 	pack .msg -side top -fill both -expand yes
 	#
+	# open file
+	frame .open
+	button .open.open -text "Open file" -command {
+		foreach file [tk_getOpenFile -multiple 1] {
+			opentsv $file
+		}
+	}
+	pack .open.open -side top -fill x
+	pack .open -side top -fill x
 	#
 	# settings
 	frame .settings
@@ -217,6 +230,8 @@ if {![llength $argv]} {
 			-command [list method $name]
 		pack .settings.$name -side left
 	}
+	#
+	# buttons
 	frame .b
 	pack .b -side top -fill x
 	set executable [info nameofexecutable]
@@ -283,27 +298,35 @@ proc splitline {line type} {
 	}
 }
 
-package require tcom
-set TRUE 1
-set FALSE 0
-if {$TRUE} {}
-if {$FALSE} {}
-# enumerations from https://msdn.microsoft.com/en-us/VBA/Excel-VBA/articles/enumerations-excel
-set xlDelimited	[expr 1]
-set xlTextQualifierDoubleQuote [expr 1]
-set xlGeneralFormat	[expr 1]
-set xlTextFormat [expr 2]
-set xlWindows	[expr 2]
-
-set application [::tcom::ref createobject "Excel.Application"]
-$application Visible 1
-set workbooks [$application Workbooks]
+proc openexcel {} {
+	set application [::tcom::ref createobject "Excel.Application"]
+	$application Visible 1
+	return [$application Workbooks]
+}
 
 # open files
-foreach file $argv {
+proc opentsv {file} {
+	global application
+	if {![info exists application]} {
+		set application [::tcom::ref createobject "Excel.Application"]
+	}
+	$application Visible 1
+	set workbooks [$application Workbooks]
+	set method [method]
+	set TRUE 1
+	set FALSE 0
+	if {$TRUE} {}
+	if {$FALSE} {}
+	# enumerations from https://msdn.microsoft.com/en-us/VBA/Excel-VBA/articles/enumerations-excel
+	set xlDelimited	[expr 1]
+	set xlTextQualifierDoubleQuote [expr 1]
+	set xlGeneralFormat	[expr 1]
+	set xlTextFormat [expr 2]
+	set xlWindows	[expr 2]
+	#
 	if {$method eq "excel"} {
 		$workbooks -namedarg Open Filename [file normalize $file]
-		continue
+		return
 	}
 	if {[file extension $file] eq ".csv"} {
 		if {$method ne "excel"} {
@@ -315,31 +338,34 @@ foreach file $argv {
 			file copy $file $tempfile
 			set file $tempfile
 		}
-		set separator comma
+		set type comma
 	} elseif {[file extension $file] eq ".tsv"} {
-		set separator tab
+		set type tab
 	} else {
-		set separator {}
+		set type {}
 	}
-	# get maximum amount of columns in csv
+	# analyse file
 	set f [open $file]
+	# skip comments
+	while {[gets $f line] != -1 && [string index $line 0] eq "\#"} {}
+	# get maximum amount of columns in csv
 	set count 0
-	set type comma
-	while {[gets $f line] != -1} {
-		# if there are commas in some of the fields, we only get a higher numnber, which is not a problem
+	# if there are commas in some of the fields, we only get a higher number, which is not a problem
+	if {$type eq ""} {
 		set tempcount [llength [split $line ,]]
 		if {$tempcount > $count} {set count $tempcount; set type comma}
 		set tempcount [llength [split $line \t]]
 		if {$tempcount > $count} {set count $tempcount; set type tab}
-		# check at least the first line that is not a comment
-		if {[string index $line 0] ne "\#"} break
 	}
-	if {$type eq "comma"} {set sep \t} else {}
+	set line [splitline $line $type]
+	set count [llength $line]
+	# first line may be a header; use second line, unless it is empty/does not exist
+	set dataline [splitline [gets $f] $type]
+	if {![llength $dataline]} {set dataline $line}
 	if {$method eq "numeric"} {
-		set line [gets $f]
-		set line [splitline $line $type]
+		# check the first line to look for numbers
 		set pos 1
-		foreach el $line {
+		foreach el $dataline {
 			if {[string is double $el]} {set numa($pos) 1}
 			incr pos
 		}
@@ -356,7 +382,7 @@ foreach file $argv {
 			lappend fieldinfo [list $i $xlTextFormat]
 		}
 	}
-	if {$separator eq "tab"} {
+	if {$type eq "tab"} {
 		set tab $TRUE ; set comma $FALSE
 	} else {
 		set tab $FALSE ; set comma $TRUE
@@ -366,6 +392,14 @@ foreach file $argv {
 		Comma $comma Tab $tab Semicolon $FALSE \
 		TextQualifier $xlTextQualifierDoubleQuote \
 		FieldInfo $fieldinfo
+}
+
+if {![llength $argv]} {
+	interface
+} else {
+	foreach file $argv {
+		opentsv $file
+	}
 }
 
 #package require Tk

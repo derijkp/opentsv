@@ -7,6 +7,9 @@ echo '' > $kitdir/opentsv.vfs/MANIFEST
 cd $kitdir
 rm opentsv.exe
 wine tclkit858.exe sdx-20110317.kit wrap opentsv.exe -runtime tclkit-win32.upx.exe
+
 cp -f opentsv.exe ~/move/com
 cp -f opentsv.exe /home/peter/build/tca/Windows-intel/opentsv.exe
 
+# cp -f /home/peter/dev/opentsv/opentsv.tcl ~/move/tca/Windows-intel/apps/opentsv/
+# cp -f ~/move/tca/Windows-intel/apps/opentsv/opentsv.tcl /home/peter/dev/opentsv
