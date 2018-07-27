@@ -25,32 +25,24 @@ exec tclsh "$0" ${1+"$@"}
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
-set help {
-Opentsv
-=======
-Open tsv or csv files in Excel without converting all data that looks like a
-date to an internal (different) format.
+set help {In short: This program opens tsv or csv files in Excel without
+converting all data that looks like a date (or a number) to an internal
+(different) format.
 
-Description
------------
 When opening a comma or tab separated value file, Excel converts any
 data that looks like a date to an internal (different) format, 
 causing big problems when text data such as gene names (e.g. SEPT2),
-identifiers (1-2), ... are converted to Excel dates. This could only 
-be stopped by going through the text import wizard and setting all 
-columns to Text. This program will open a csv/tsv file in Excel, 
+identifiers (1-2), ... are converted to Excel dates. 
+This program will open a csv/tsv file in Excel, 
 using text format (or other options) for all columns, thus protecting 
 your data from conversion. A file opened this way will be (by default) 
 saved as a tab-separated file, even if the orignal was comma separated.
 
-Because Excel cannot be convinced to mend its evil ways if a file has 
-the csv extension, a copy with the extension tcsv is made first and 
-then opened. Opentsv will recognize commas (and only commas) as 
-separaters in a csv file (as per rfc4180), unlike Excel: It 
-will a different separator, e.g. a semicolon, depending on the 
-locale (making it difficult to easily open actual csv files). However, 
-if the "Excel default" option is chosen, opentsv will let Excel open 
-files in its usual fashion.
+The locale hack can be used to load real comma separated value files in to
+Excel in locales using a decimal comma: In these locales Excel assumes
+semicolon as the delimiter for csv files (contrary to rfc4180) and refuses
+to load any file with the csv extension using another delimiter (even the
+correct comma)
 
 Use
 ---
@@ -65,7 +57,13 @@ Copyright (c) 2017 Peter De Rijk (VIB - University of Antwerp)
 Available under MIT license
 }
 
-package require tcom
+if {![info exists debug]} {
+	set debug 0
+}
+
+if {$tcl_platform(platform) ne "unix"} {
+	package require tcom
+}
 
 proc register_filetype {extension class name mime code {icon {}}} {
 	package require registry
@@ -94,6 +92,14 @@ proc register_filetype {extension class name mime code {icon {}}} {
 	if {$error} {error $::errorInfo}
 }
 
+proc programfilesdir {} {
+	if {$::tcl_platform(platform) eq "unix"} {
+		# for testing
+		return {}
+	}
+	registry get HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion ProgramFilesDir
+}
+
 proc fileassoc {executable} {
 	if {$executable eq ""} {set executable [info nameofexecutable]}
 	foreach {ext mime name} {
@@ -110,15 +116,15 @@ proc fileassoc {executable} {
 
 proc install {} {
 	global installdir install env
-	set programfilesdir [registry get HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion ProgramFilesDir]
+	set programfilesdir [programfilesdir]
 	set installdir $programfilesdir
 	destroy .installd
 	toplevel .installd
 	wm title .installd Install
-	label .installd.info -text {This program does not have to be installed;
+	label .installd.info -text {Installation is not really required for this program
 It is a single executable that can also be run in place.
-This "installation" will only copy the executable into the installation folder
-and make the proper links.}
+This "installation" will copy the executable into the installation folder
+and make the proper links to make it run automatically from the installation directory when double clicking.}
 	pack .installd.info -side top -fill x
 	frame .installd.browse
 	pack .installd.browse -side top -fill x -expand yes
@@ -160,102 +166,31 @@ and make the proper links.}
 	append text "\nFinished" ; .install configure -text $text ; update idletasks
 }
 
-proc method {{method {}}} {
+proc settings {what {value {}}} {
 	if {[info exists ::env(APPDATA)]} {
 		set inifile [file join $::env(APPDATA)/opentsv.conf]
 	} else {
 		set inifile [file join $::env(HOME)/opentsv.conf]
 	}
-	if {$method eq ""} {
-		if {[file exists $inifile]} {
-			set f [open $inifile]
-			set method [gets $f]
-			close $f
-		} else {
-			set method numeric
-		}
+	if {[file exists $inifile]} {
+		set f [open $inifile]
+		set settings [gets $f]
+		close $f
 	} else {
+		set settings {numeric auto 0}
+	}
+	if {[llength $settings] == 1} {lappend settings auto}
+	if {[llength $settings] == 2} {lappend settings 1}
+	set pos [lsearch {method sepmethod copycsv} $what]
+	if {$value eq ""} {
+		return [lindex $settings $pos]
+	} else {
+		set settings [lreplace $settings $pos $pos $value]
 		set o [open $inifile w]
-		puts $o $method
+		puts $o $settings
 		close $o
+		return $settings
 	}
-	return $method
-}
-
-set method [method]
-
-proc interface {} {
-	global workbooks
-	# interface if no file is give
-	package require Tk
-	wm title . Opentsv
-
-	destroy .settings .b .msglabel .msg
-	. configure -padx 4 -pady 4
-	#
-	# help
-	label .msglabel -text "Opentsv description"
-	pack .msglabel -side top -fill x
-	frame .msg
-	text .msg.t -yscrollcommand {.msg.s set} -height 20
-	.msg.t insert end $::help
-	scrollbar .msg.s -command {.msg.t yview}
-	pack .msg.t -side left -fill both -expand yes
-	pack .msg.s -side left -fill y
-	pack .msg -side top -fill both -expand yes
-	#
-	# open file
-	frame .open
-	button .open.open -text "Open file" -command {
-		foreach file [tk_getOpenFile -multiple 1] {
-			opentsv $file
-		}
-	}
-	pack .open.open -side top -fill x
-	pack .open -side top -fill x
-	#
-	# settings
-	frame .settings
-	pack .settings -side top -fill x -expand yes
-	label .settings.method -text "Method"
-	pack .settings.method -side left
-	foreach {name descr} {
-		all "All as text"
-		numeric "Only convert numerical columns"
-		convall "Convert everything"
-		excel "Excel default"
-	} {
-		radiobutton .settings.$name -text $descr \
-			-variable method -value $name \
-			-command [list method $name]
-		pack .settings.$name -side left
-	}
-	#
-	# buttons
-	frame .b
-	pack .b -side top -fill x
-	set executable [info nameofexecutable]
-	button .b.filel \
-		-text "Register opentsv as default program for opening" \
-		-command [list fileassoc $executable]
-	pack .b.filel -side left
-	foreach {ext} {csv tsv tab tcsv} {
-		checkbutton .b.$ext -text $ext -variable reg($ext)
-		set ::reg($ext) 1
-		pack .b.$ext -side left
-	}
-	# install
-	set programfilesdir [registry get HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion ProgramFilesDir]
-	if {[file normalize [info nameofexecutable]] ne [file normalize $programfilesdir/opentsv/opentsv.exe]} {
-		button .b.install -command install -text Install
-		pack .b.install -side left
-	}
-	# exit
-	button .b.exit -command exit -text Exit
-	pack .b.exit
-
-	tkwait window .
-	exit
 }
 
 proc csv_split {line sep} {
@@ -306,13 +241,17 @@ proc openexcel {} {
 
 # open files
 proc opentsv {file} {
-	global application
-	if {![info exists application]} {
-		set application [::tcom::ref createobject "Excel.Application"]
+	global application tcl_platform
+	if {$tcl_platform(platform) ne "unix"} {
+		if {![info exists application]} {
+			set application [::tcom::ref createobject "Excel.Application"]
+		}
+		$application Visible 1
+		set workbooks [$application Workbooks]
 	}
-	$application Visible 1
-	set workbooks [$application Workbooks]
-	set method [method]
+	set method [settings method]
+	set sepmethod [settings sepmethod]
+	set copycsv [settings copycsv]
 	set TRUE 1
 	set FALSE 0
 	if {$TRUE} {}
@@ -328,8 +267,10 @@ proc opentsv {file} {
 		$workbooks -namedarg Open Filename [file normalize $file]
 		return
 	}
+	# determine separator
+	set type {}
 	if {[file extension $file] eq ".csv"} {
-		if {$method ne "excel"} {
+		if {$method ne "excel" && $copycsv} {
 			set tempfile [file root $file].tcsv
 			set num 0
 			while {[file exists $tempfile]} {
@@ -338,11 +279,13 @@ proc opentsv {file} {
 			file copy $file $tempfile
 			set file $tempfile
 		}
-		set type comma
+		if {$sepmethod eq "auto"} {
+			set type comma
+		}
 	} elseif {[file extension $file] eq ".tsv"} {
-		set type tab
-	} else {
-		set type {}
+		if {$sepmethod eq "auto"} {
+			set type tab
+		}
 	}
 	# analyse file
 	set f [open $file]
@@ -351,11 +294,20 @@ proc opentsv {file} {
 	# get maximum amount of columns in csv
 	set count 0
 	# if there are commas in some of the fields, we only get a higher number, which is not a problem
-	if {$type eq ""} {
+	if {$sepmethod in "comma tab semicolon space"} {
+		set type $sepmethod
+	} elseif {$type eq ""} {
 		set tempcount [llength [split $line ,]]
 		if {$tempcount > $count} {set count $tempcount; set type comma}
 		set tempcount [llength [split $line \t]]
 		if {$tempcount > $count} {set count $tempcount; set type tab}
+		set tempcount [llength [split $line \;]]
+		if {$tempcount > $count} {set count $tempcount; set type semicolon}
+		if {$count == 1} {
+			# space may occur a lot in the values, only try space if the others are not present
+			set tempcount [llength [split $line " "]]
+			if {$tempcount > $count} {set count $tempcount; set type space}
+		}
 	}
 	set line [splitline $line $type]
 	set count [llength $line]
@@ -368,6 +320,16 @@ proc opentsv {file} {
 		foreach el $dataline {
 			if {[string is double $el]} {set numa($pos) 1}
 			incr pos
+		}
+		set curpos 1
+		set poss [array get numa]
+		while {[gets $f line] != -1} {
+			incr curpos ; if {$curpos > 10} break
+			set dataline [splitline $line $type]
+			set pos 1
+			foreach pos $poss {
+				if {![string is double $el]} {unset -nocomplain numa($pos)}
+			}
 		}
 	}
 	close $f
@@ -383,15 +345,136 @@ proc opentsv {file} {
 		}
 	}
 	if {$type eq "tab"} {
-		set tab $TRUE ; set comma $FALSE
+		set tab $TRUE ; set comma $FALSE ; set semicolon $FALSE ; set space $FALSE
+	} elseif {$type eq "comma"} {
+		set tab $FALSE ; set comma $TRUE ; set semicolon $FALSE ; set space $FALSE
+	} elseif {$type eq "semicolon"} {
+		set tab $FALSE ; set comma $FALSE ; set semicolon $TRUE ; set space $FALSE
 	} else {
-		set tab $FALSE ; set comma $TRUE
+		set tab $FALSE ; set comma $FALSE ; set semicolon $FALSE ; set space $TRUE
 	}
-	$workbooks -namedarg OpenText Filename [file normalize $file] \
-		DataType $xlDelimited \
-		Comma $comma Tab $tab Semicolon $FALSE \
-		TextQualifier $xlTextQualifierDoubleQuote \
-		FieldInfo $fieldinfo
+	if {$tcl_platform(platform) eq "unix"} {
+		# testing
+		puts [list workbooks -namedarg OpenText Filename [file normalize $file] \
+			DataType $xlDelimited \
+			Comma $comma Tab $tab Semicolon $semicolon Space $space\
+			TextQualifier $xlTextQualifierDoubleQuote \
+			FieldInfo $fieldinfo]
+	} else {
+		$workbooks -namedarg OpenText Filename [file normalize $file] \
+			DataType $xlDelimited \
+			Comma $comma Tab $tab Semicolon $semicolon Space $space \
+			TextQualifier $xlTextQualifierDoubleQuote \
+			FieldInfo $fieldinfo
+	}
+}
+
+proc interface {} {
+	global workbooks debug
+	set ::method [settings method]
+	set ::sepmethod [settings sepmethod]
+	set ::copycsv [settings copycsv]
+	# interface if no file is give
+	package require Tk
+	wm title . Opentsv
+
+	destroy .open .settings .b .msglabel .msg
+	. configure -padx 4 -pady 4
+	#
+	# help
+	label .msglabel -text "Opentsv description"
+	pack .msglabel -side top -fill x
+	frame .msg
+	text .msg.t -yscrollcommand {.msg.s set} -height 5
+	.msg.t insert end $::help
+	scrollbar .msg.s -command {.msg.t yview}
+	pack .msg.t -side left -fill both -expand yes
+	pack .msg.s -side left -fill y
+	pack .msg -side top -fill both -expand yes
+	#
+	# open file
+	frame .open
+	button .open.open -text "Open file" -command {
+		foreach file [tk_getOpenFile -multiple 1] {
+			opentsv $file
+		}
+	}
+	pack .open.open -side top -fill x
+	pack .open -side top -fill x
+	#
+	# settings
+	label .settingslabel -text "Settings" -font TkHeadingFont
+	bind .settingslabel <2> {console show}
+	pack .settingslabel -side top -fill x
+	frame .settings
+	pack .settings -side top -fill x
+	label .settings.method -text "Method"
+	pack .settings.method -side left -anchor n
+	foreach {name descr ldescr} {
+		all "All as text" "No conversion will happen because everything is imported as text"
+		numeric "Only convert numerical columns" "Conversion can happen for columns containing only numbers (first 10 lines checked)"
+		convall "Convert all" "All columns may be converted by Excel"
+		excel "Excel default" "Open data files using Excel without intervention of opentsv"
+	} {
+		radiobutton .settings.$name -text "$descr: $ldescr" \
+			-variable method -value $name \
+			-command [list settings method $name]
+		pack .settings.$name -side top -fill y -anchor w
+	}
+	frame .settings2
+	pack .settings2 -side top -fill x
+	label .settings2.method -text "Separator"
+	pack .settings2.method -side left -anchor n
+	foreach {name descr ldescr} {
+		allwaysauto "Allways autodetect" "opentsv detects the delimiter from the data,"
+		auto "Autodetect (not csv and tsv)" "autodetect except for csv and tsv files (allways comma and tab respectively)"
+		comma "comma" "Always use comma as delimiter"
+		tab "tab" "Always use tab as delimiter"
+		semicolon "semicolon" "Always use semicolon as delimiter"
+		space "space" "Always use space as delimiter"
+	} {
+		radiobutton .settings2.$name -text "$descr: $ldescr" \
+			-variable sepmethod -value $name \
+			-command [list settings sepmethod $name]
+		pack .settings2.$name -side top -fill y -anchor w
+	}
+	checkbutton .copycsv -justify left -anchor w -text "Locale hack: Copy csv to tcsv first (so it can be opened using commas in locales using an other delimiter)" \
+		-variable copycsv \
+		-command "settings copycsv \$::copycsv"
+	pack .copycsv -side top -fill x
+	#
+	# install
+	label .installlabel -text "Install" -font TkHeadingFont
+	pack .installlabel -side top -fill x
+	label .installdescr -text "Opentsv is a single file executable that can be used without installation.
+It is more useful if registered to automatically open delimited file types (on double click)
+The \"Install\" will copy it to an installation folder and register this copy." -justify left
+	pack .installdescr -side top -fill x -anchor w
+	frame .b
+	pack .b -side top -fill x
+	set executable [info nameofexecutable]
+	button .b.filel \
+		-text "Register opentsv as default program for opening" \
+		-command [list fileassoc $executable]
+	pack .b.filel -side left
+	foreach {ext} {csv tsv tab tcsv} {
+		checkbutton .b.$ext -text $ext -variable reg($ext)
+		set ::reg($ext) 1
+		pack .b.$ext -side left
+	}
+	set programfilesdir [programfilesdir]
+	if {[file normalize [info nameofexecutable]] ne [file normalize $programfilesdir/opentsv/opentsv.exe]} {
+		button .b.install -command install -text Install
+		pack .b.install -side left
+	}
+	# exit
+	button .b.exit -command exit -text Exit
+	pack .b.exit
+
+	if {!$debug} {
+		tkwait window .
+		exit
+	}
 }
 
 if {![llength $argv]} {
@@ -405,4 +488,6 @@ if {![llength $argv]} {
 #package require Tk
 #tk_messageBox -title "test" -detail [list method: $method argv0: $argv0 argv: $argv]
 
-exit
+if {!$debug} {
+	exit
+}
