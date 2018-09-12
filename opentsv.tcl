@@ -33,16 +33,22 @@ When opening a comma or tab separated value file, Excel converts any
 data that looks like a date to an internal (different) format, 
 causing big problems when text data such as gene names (e.g. SEPT2),
 identifiers (1-2), ... are converted to Excel dates. 
+
 This program will open a csv/tsv file in Excel, 
 using text format (or other options) for all columns, thus protecting 
 your data from conversion. A file opened this way will be (by default) 
 saved as a tab-separated file, even if the orignal was comma separated.
 
-The locale hack can be used to load real comma separated value files in to
-Excel in locales using a decimal comma: In these locales Excel assumes
-semicolon as the delimiter for csv files (contrary to rfc4180) and refuses
-to load any file with the csv extension using another delimiter (even the
-correct comma)
+Opentsv will also solve the problem that for users in some locales using a
+decimal comma, Excel assumes a semicolon as the delimiter for csv files
+(contrary to rfc4180) and refuses to load properly formatted csv files
+(without changing the locale).
+
+For opening csv files properly, a hack was needed: The parameters used for
+opening files with the extension .csv seem to be hard-coded in Excel: It
+does not honor any adapted parameters for conversion or separater if it
+has the extension. Therefore opentsv copies a .csv file first to a .tcsv
+file and opens that one instead.
 
 Use
 ---
@@ -177,7 +183,7 @@ proc settings {what {value {}}} {
 		set settings [gets $f]
 		close $f
 	} else {
-		set settings {numeric auto 0}
+		set settings {numeric auto 1}
 	}
 	if {[llength $settings] == 1} {lappend settings auto}
 	if {[llength $settings] == 2} {lappend settings 1}
@@ -438,10 +444,10 @@ proc interface {} {
 			-command [list settings sepmethod $name]
 		pack .settings2.$name -side top -fill y -anchor w
 	}
-	checkbutton .copycsv -justify left -anchor w -text "Locale hack: Copy csv to tcsv first (so it can be opened using commas in locales using an other delimiter)" \
-		-variable copycsv \
-		-command "settings copycsv \$::copycsv"
-	pack .copycsv -side top -fill x
+#	checkbutton .copycsv -justify left -anchor w -text "Locale hack: Copy csv to tcsv first (so it can be opened using commas in locales using an other delimiter)" \
+#		-variable copycsv \
+#		-command "settings copycsv \$::copycsv"
+#	pack .copycsv -side top -fill x
 	#
 	# install
 	label .installlabel -text "Install" -font TkHeadingFont
