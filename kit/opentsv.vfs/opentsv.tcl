@@ -234,6 +234,10 @@ proc csv_split {line sep} {
 proc splitline {line type} {
 	if {$type eq "comma"} {
 		return [csv_split $line ,]
+	} elseif {$type eq "semicolon"} {
+		return [csv_split $line \;]
+	} elseif {$type eq "space"} {
+		return [csv_split $line " "]
 	} else {
 		return [split $line \t]
 	}
