@@ -25,19 +25,37 @@ exec tclsh "$0" ${1+"$@"}
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
-set help {In short: This program opens tsv or csv files in Excel without
-converting all data that looks like a date (or a number) to an internal
-(different) format.
-
+set help {
+Short description
+-----------------
 When opening a comma or tab separated value file, Excel converts any
-data that looks like a date to an internal (different) format, 
+data that looks like a date or a number to an internal (different) format, 
 causing big problems when text data such as gene names (e.g. SEPT2),
 identifiers (1-2), ... are converted to Excel dates. 
+This program opens tab-separated (tsv) or comma-separated (csv) files in
+Excel without this conversion/corruption of data.
 
-This program will open a csv/tsv file in Excel, 
-using text format (or other options) for all columns, thus protecting 
-your data from conversion. A file opened this way will be (by default) 
-saved as a tab-separated file, even if the orignal was comma separated.
+Use
+---
+Starting the program without a file gives you this settings/installation
+screen. This program does not have to be installed though: You can use it
+directly by using the "Open file" or by dragging a file onto the exe.
+However, if you install it and/or register it as the default program to
+open tsv and csv files (bottom), its use becomes transparent: double
+clicking a tsv file will open it in Excel with the current settings.
+
+In this settings screen you can also change the way opentsv handles
+separators and conversion methods used: from importing everything as text
+to opening the file in the default Excel style.
+
+Longer description
+------------------
+Opentsv first scans a given file to detect the separator. It then opens
+Excel and forces it to load the file using the selected method, e.g.
+importing all columns as text, thus protecting your data from conversion.
+A file opened this way will be (by default) saved as a tab-separated file,
+even if the orignal was comma separated. If you need to save it as
+comma-separated, use "save as".
 
 Opentsv will also solve the problem that for users in some locales using a
 decimal comma, Excel assumes a semicolon as the delimiter for csv files
@@ -47,17 +65,8 @@ decimal comma, Excel assumes a semicolon as the delimiter for csv files
 For opening csv files properly, a hack was needed: The parameters used for
 opening files with the extension .csv seem to be hard-coded in Excel: It
 does not honor any adapted parameters for conversion or separater if it
-has the extension. Therefore opentsv copies a .csv file first to a .tcsv
-file and opens that one instead.
-
-Use
----
-You can drag one or more files onto the program, or set it as a default
-program to open tsv and csv files. If you start the program without a
-file as parameter, you get in the settings dialog. Here you can select 
-the method used: from importing everything as text to opening the file
-in the default Excel style. There are also buttons to register opentsv 
-as default program for several extensions.
+has the extension csv. Therefore opentsv copies a .csv file first to a
+.tcsv file and opens that one instead.
 
 Copyright (c) 2017 Peter De Rijk (VIB - University of Antwerp)
 Available under MIT license
@@ -183,7 +192,7 @@ proc settings {what {value {}}} {
 		set settings [gets $f]
 		close $f
 	} else {
-		set settings {numeric auto 1}
+		set settings {numeric allwaysauto 1}
 	}
 	if {[llength $settings] == 1} {lappend settings auto}
 	if {[llength $settings] == 2} {lappend settings 1}
@@ -395,8 +404,8 @@ proc interface {} {
 	label .msglabel -text "Opentsv description"
 	pack .msglabel -side top -fill x
 	frame .msg
-	text .msg.t -yscrollcommand {.msg.s set} -height 5
-	.msg.t insert end $::help
+	text .msg.t -yscrollcommand {.msg.s set} -height 15
+	.msg.t insert end [string trim $::help]
 	scrollbar .msg.s -command {.msg.t yview}
 	pack .msg.t -side left -fill both -expand yes
 	pack .msg.s -side left -fill y
