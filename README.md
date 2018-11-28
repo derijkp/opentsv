@@ -23,6 +23,8 @@ In this settings screen you can also change the way opentsv handles
 separators and conversion methods used: from importing everything as text
 to opening the file in the default Excel style.
 
+<img src='https://github.com/derijkp/opentsv/blob/master/docs/tool.png' />
+
 Longer description
 ------------------
 Opentsv first scans a given file to detect the separator. It then opens
