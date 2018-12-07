@@ -335,19 +335,34 @@ proc opentsv {file} {
 	if {![llength $dataline]} {set dataline $line}
 	if {$method eq "numeric"} {
 		# check the first line to look for numbers
+		# numa($pos) contains 1 if the col is numeric, 2 if empty:
+		# numeric columns may contain empty values, but 
+		# if all tested values are empty, we will not call it numberic
+		unset -nocomplain numa
 		set pos 1
 		foreach el $dataline {
-			if {[string is double $el]} {set numa($pos) 1}
+			if {[string is double $el]} {
+				if {$el eq ""} {
+					set numa($pos) 2
+				} else {
+					set numa($pos) 1
+				}
+			}
 			incr pos
 		}
 		set curpos 1
-		set poss [array get numa]
+		set poss [array names numa]
 		while {[gets $f line] != -1} {
 			incr curpos ; if {$curpos > 10} break
 			set dataline [splitline $line $type]
 			set pos 1
-			foreach pos $poss {
-				if {![string is double $el]} {unset -nocomplain numa($pos)}
+			foreach el $dataline {
+				if {![string is double $el]} {
+					unset -nocomplain numa($pos)
+				} elseif {$el ne ""} {
+					set numa($pos) 1
+				}
+				incr pos
 			}
 		}
 	}
