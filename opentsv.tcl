@@ -258,55 +258,8 @@ proc openexcel {} {
 	return [$application Workbooks]
 }
 
-# open files
-proc opentsv {file} {
-	global application tcl_platform
-	if {$tcl_platform(platform) ne "unix"} {
-		if {![info exists application]} {
-			set application [::tcom::ref createobject "Excel.Application"]
-		}
-		$application Visible 1
-		set workbooks [$application Workbooks]
-	}
-	set method [settings method]
-	set sepmethod [settings sepmethod]
-	set copycsv [settings copycsv]
-	set TRUE 1
-	set FALSE 0
-	if {$TRUE} {}
-	if {$FALSE} {}
-	# enumerations from https://msdn.microsoft.com/en-us/VBA/Excel-VBA/articles/enumerations-excel
-	set xlDelimited	[expr 1]
-	set xlTextQualifierDoubleQuote [expr 1]
-	set xlGeneralFormat	[expr 1]
-	set xlTextFormat [expr 2]
-	set xlWindows	[expr 2]
-	#
-	if {$method eq "excel"} {
-		$workbooks -namedarg Open Filename [file normalize $file]
-		return
-	}
-	# determine separator
-	set type {}
-	if {[file extension $file] eq ".csv"} {
-		if {$method ne "excel" && $copycsv} {
-			set tempfile [file root $file].tcsv
-			set num 0
-			while {[file exists $tempfile]} {
-				set tempfile [file root $file][incr num].tcsv
-			}
-			file copy $file $tempfile
-			set file $tempfile
-		}
-		if {$sepmethod eq "auto"} {
-			set type comma
-		}
-	} elseif {[file extension $file] eq ".tsv"} {
-		if {$sepmethod eq "auto"} {
-			set type tab
-		}
-	}
-	# analyse file
+proc analyse_file {file method sepmethod type} {
+	unset -nocomplain numa
 	set f [open $file]
 	# skip comments
 	while {[gets $f line] != -1 && [string index $line 0] eq "\#"} {}
@@ -367,8 +320,10 @@ proc opentsv {file} {
 		}
 	}
 	close $f
-	
 	# create (text) formatting array
+	set xlGeneralFormat	[expr 1]
+	set xlTextFormat [expr 2]
+	set xlWindows	[expr 2]
 	set fieldinfo {}
 	incr count
 	for {set i 1} {$i < $count} {incr i} {
@@ -378,6 +333,56 @@ proc opentsv {file} {
 			lappend fieldinfo [list $i $xlTextFormat]
 		}
 	}
+	return [list $type $fieldinfo]
+}
+
+# open files
+proc opentsv {file} {
+	global application tcl_platform
+	if {$tcl_platform(platform) ne "unix"} {
+		if {![info exists application]} {
+			set application [::tcom::ref createobject "Excel.Application"]
+		}
+		$application Visible 1
+		set workbooks [$application Workbooks]
+	}
+	set method [settings method]
+	set sepmethod [settings sepmethod]
+	set copycsv [settings copycsv]
+	set TRUE 1
+	set FALSE 0
+	if {$TRUE} {}
+	if {$FALSE} {}
+	# enumerations from https://msdn.microsoft.com/en-us/VBA/Excel-VBA/articles/enumerations-excel
+	set xlDelimited	[expr 1]
+	set xlTextQualifierDoubleQuote [expr 1]
+	#
+	if {$method eq "excel"} {
+		$workbooks -namedarg Open Filename [file normalize $file]
+		return
+	}
+	# determine (base) separator
+	set type {}
+	if {[file extension $file] eq ".csv"} {
+		if {$method ne "excel" && $copycsv} {
+			set tempfile [file root $file].tcsv
+			set num 0
+			while {[file exists $tempfile]} {
+				set tempfile [file root $file][incr num].tcsv
+			}
+			file copy $file $tempfile
+			set file $tempfile
+		}
+		if {$sepmethod eq "auto"} {
+			set type comma
+		}
+	} elseif {[file extension $file] eq ".tsv"} {
+		if {$sepmethod eq "auto"} {
+			set type tab
+		}
+	}
+	# analyse file
+	foreach {type fieldinfo} [analyse_file $file $method $sepmethod $type] break
 	if {$type eq "tab"} {
 		set tab $TRUE ; set comma $FALSE ; set semicolon $FALSE ; set space $FALSE
 	} elseif {$type eq "comma"} {

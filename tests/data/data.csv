@@ -1,0 +1,4 @@
+loc,date,gene,num,float,numwithempty
+1-1,,,1,8.2,
+1-2,,,2,9.8,1
+2-1,2018-07-10,SEPT1,3,9.7,
