@@ -45,7 +45,7 @@ test opentsv {na4numbers.tsv} {
 	analyse_file data/na4numbers.tsv $method $sepmethod $type
 } {tab {{1 2}}} match
 
-test opentsv {9 numbers} {
+test opentsv {999 numbers} {
 	set o [open tmp/test.tsv w]
 	puts $o num
 	for {set num 1} {$num <= 999} {incr num} {
@@ -57,7 +57,7 @@ test opentsv {9 numbers} {
 	analyse_file tmp/test.tsv $method $sepmethod $type
 } {tab {{1 2}}} match
 
-test opentsv {10 numbers} {
+test opentsv {1000 numbers} {
 	set o [open tmp/test.tsv w]
 	puts $o num
 	for {set num 1} {$num <= 1000} {incr num} {

@@ -259,6 +259,7 @@ proc openexcel {} {
 }
 
 proc analyse_file {file method sepmethod type} {
+	set numtestlines 1000
 	unset -nocomplain numa
 	set f [open $file]
 	# skip comments
@@ -303,10 +304,9 @@ proc analyse_file {file method sepmethod type} {
 			}
 			incr pos
 		}
-		set curpos 1
 		set poss [array names numa]
 		while {[gets $f line] != -1} {
-			incr curpos ; if {$curpos > 10} break
+			if {![incr numtestlines -1]} break
 			set dataline [splitline $line $type]
 			set pos 1
 			foreach el $dataline {
