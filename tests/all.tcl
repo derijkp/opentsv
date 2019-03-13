@@ -13,7 +13,7 @@ test opentsv {data.tsv} {
 
 test opentsv {problems.tsv} {
 	exec ../opentsv.tcl data/problems.tsv
-} {workbooks -namedarg OpenText Filename */problems.tsv DataType 1 Comma 0 Tab 1 Semicolon 0 Space 0 TextQualifier 1 FieldInfo {1 2} {2 2}} match
+} {workbooks -namedarg OpenText Filename */problems.tsv DataType 1 Comma 0 Tab 1 Semicolon 0 Space 0 TextQualifier 1 FieldInfo {{1 2} {2 2}}} match
 
 test analyse_file {data.tsv} {
 	set method numeric ; set sepmethod allwaysauto ; set type {}
