@@ -263,7 +263,9 @@ proc analyse_file {file method sepmethod type} {
 	unset -nocomplain numa
 	set f [open $file]
 	# skip comments
-	while {[gets $f line] != -1 && [string index $line 0] eq "\#"} {}
+	while {[gets $f line] != -1} {
+		if {[string length $line] && [string index $line 0] ne "\#"} break
+	}
 	# get maximum amount of columns in csv
 	set count 0
 	# if there are commas in some of the fields, we only get a higher number, which is not a problem

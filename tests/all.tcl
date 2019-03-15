@@ -15,6 +15,33 @@ test opentsv {problems.tsv} {
 	exec ../opentsv.tcl data/problems.tsv
 } {workbooks -namedarg OpenText Filename */problems.tsv DataType 1 Comma 0 Tab 1 Semicolon 0 Space 0 TextQualifier 1 FieldInfo {{1 2} {2 2}}} match
 
+test opentsv {emptyline} {
+	file_write tmp/test.tsv [deindent {
+		# comment
+		
+		a	1
+		b	2
+	}]\n
+	exec ../opentsv.tcl tmp/test.tsv
+} {workbooks -namedarg OpenText Filename */test.tsv DataType 1 Comma 0 Tab 1 Semicolon 0 Space 0 TextQualifier 1 FieldInfo {{1 2} {2 1}}} match
+
+test opentsv {emptyline} {
+	file_write tmp/test.tsv [deindent {
+		# comment
+		
+		a	1
+		b	2
+	}]\n
+	set method numeric ; set sepmethod allwaysauto ; set type {}
+	set result {}
+	foreach method {numeric all convall} {
+		lappend result [analyse_file tmp/test.tsv $method $sepmethod $type]
+	}
+	join $result \n
+} {tab {{1 2} {2 1}}
+tab {{1 2} {2 2}}
+tab {{1 1} {2 1}}}
+
 test analyse_file {data.tsv} {
 	set method numeric ; set sepmethod allwaysauto ; set type {}
 	analyse_file data/data.tsv $method $sepmethod $type
