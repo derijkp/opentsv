@@ -96,4 +96,8 @@ test opentsv {1000 numbers} {
 	analyse_file tmp/test.tsv $method $sepmethod $type
 } {tab {{1 1}}}
 
+test opentsv {test_excel_import.txt} {
+	exec ../opentsv.tcl data/test_excel_import.txt
+} {workbooks -namedarg OpenText Filename */test_excel_import.txt DataType 1 Comma 1 Tab 0 Semicolon 0 Space 0 TextQualifier 1 FieldInfo {{1 2}}} match
+
 testsummarize
