@@ -192,7 +192,7 @@ proc settings {what {value {}}} {
 		set settings [gets $f]
 		close $f
 	} else {
-		set settings {numeric allwaysauto 1}
+		set settings {all allwaysauto 1}
 	}
 	if {[llength $settings] == 1} {lappend settings auto}
 	if {[llength $settings] == 2} {lappend settings 1}
