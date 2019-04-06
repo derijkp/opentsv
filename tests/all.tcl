@@ -7,6 +7,11 @@ source tools.tcl
 settings method numeric
 settings sepmethod allwaysauto
 
+test opentsv {issafenum} {
+	list [issafenum 0] [issafenum 0.1] [issafenum 10] [issafenum 1.10] [issafenum 0] [issafenum 0] \
+		[issafenum e1] [issafenum a] [issafenum 1,1] [issafenum 1x1]
+} {1 1 1 1 1 1 0 0 0 0}
+
 test opentsv {data.tsv} {
 	exec ../opentsv.tcl data/data.tsv
 } {workbooks -namedarg OpenText Filename */data.tsv DataType 1 Comma 0 Tab 1 Semicolon 0 Space 0 TextQualifier 1 FieldInfo {{1 2} {2 2} {3 2} {4 1} {5 1} {6 1}}} match
@@ -39,6 +44,21 @@ test opentsv {emptyline} {
 	}
 	join $result \n
 } {tab {{1 2} {2 1}}
+tab {{1 2} {2 2}}
+tab {{1 1} {2 1}}}
+
+test opentsv {emptyline} {
+	file_write tmp/test.tsv [deindent {
+		a	1
+		b	2e0
+	}]\n
+	set method numeric ; set sepmethod allwaysauto ; set type {}
+	set result {}
+	foreach method {numeric all convall} {
+		lappend result [analyse_file tmp/test.tsv $method $sepmethod $type]
+	}
+	join $result \n
+} {tab {{1 2} {2 2}}
 tab {{1 2} {2 2}}
 tab {{1 1} {2 1}}}
 
@@ -98,6 +118,42 @@ test opentsv {1000 numbers} {
 
 test opentsv {test_excel_import.txt} {
 	exec ../opentsv.tcl data/test_excel_import.txt
-} {workbooks -namedarg OpenText Filename */test_excel_import.txt DataType 1 Comma 1 Tab 0 Semicolon 0 Space 0 TextQualifier 1 FieldInfo {{1 2}}} match
+} {workbooks -namedarg OpenText Filename */test_excel_import.txt DataType 1 Comma 0 Tab 1 Semicolon 0 Space 0 TextQualifier 1 FieldInfo {{1 2}}} match
+
+test opentsv {GSE6857_series_matrix.txt.gz} {
+	# test suggested by reviewer, caused problems because it is not really a tsv in the original definition:
+	# could not find correct header/nr of columns because ! for comments
+	exec zcat data/GSE6857_series_matrix.txt.gz > tmp/GSE6857_series_matrix.txt
+	set expected [list tab [list_mangle [list_fill 483 1 1] [list_fill 483 2]]]
+	set result [analyse_file tmp/GSE6857_series_matrix.txt numeric allwaysauto tab]
+	expr {$result == $expected}
+} 1
+
+test opentsv {comma only accepts decimal point} {
+	file_write tmp/test.csv [deindent {
+		a,b,c
+		1,1,"1,0"
+		b,2.0,2
+	}]\n
+	analyse_file tmp/test.csv numeric {} {}
+} {comma {{1 2} {2 1} {3 2}}}
+
+test opentsv {semicolon accepts both decimal comma and point} {
+	file_write tmp/test.csv [deindent {
+		a;b;c
+		a;1;1.0
+		b;2,0;2.0
+	}]\n
+	analyse_file tmp/test.csv numeric {} {}
+} {semicolon {{1 2} {2 1} {3 1}}}
+
+test opentsv {space separator} {
+	file_write tmp/test.csv [deindent {
+		a b c
+		1 1 5e1
+		b 2.0 2
+	}]\n
+	analyse_file tmp/test.csv numeric {} {}
+} {space {{1 2} {2 1} {3 2}}}
 
 testsummarize

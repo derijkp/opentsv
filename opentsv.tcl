@@ -258,6 +258,15 @@ proc openexcel {} {
 	return [$application Workbooks]
 }
 
+proc issafenum {el} {
+	if {$el eq "0"} {return 1}
+	regexp {^[0-9]*\.?[0-9]*$} $el
+}
+
+proc isnumeric {el} {
+	string is double $el
+}
+
 proc analyse_file {file method sepmethod type} {
 	set numtestlines 1000
 	unset -nocomplain numa
@@ -266,75 +275,97 @@ proc analyse_file {file method sepmethod type} {
 	while {[gets $f line] != -1} {
 		if {[string length $line] && [string index $line 0] ne "\#"} break
 	}
-	# get maximum amount of columns in csv
-	set count 0
-	# if there are commas in some of the fields, we only get a higher number, which is not a problem
+	# Determine type
 	if {$sepmethod in "comma tab semicolon space"} {
 		set type $sepmethod
 	} elseif {$type eq ""} {
-		set tempcount [llength [split $line ,]]
-		if {$tempcount > $count} {set count $tempcount; set type comma}
-		set tempcount [llength [split $line \t]]
-		if {$tempcount > $count} {set count $tempcount; set type tab}
-		set tempcount [llength [split $line \;]]
-		if {$tempcount > $count} {set count $tempcount; set type semicolon}
-		if {$count == 1} {
-			# space may occur a lot in the values, only try space if the others are not present
-			set tempcount [llength [split $line " "]]
-			if {$tempcount > $count} {set count $tempcount; set type space}
+		set type tab
+		set count [llength [split $line \t]]
+		if {$count > 1} {
+			# tab is very unlikely to be present if it is not the separator, so prefer this
+			set type tab
+		} else {
+			set tempcount [llength [split $line ,]]
+			if {$tempcount > $count} {set count $tempcount; set type comma}
+			set tempcount [llength [split $line \;]]
+			if {$tempcount > $count} {set count $tempcount; set type semicolon}
+			if {$count == 1} {
+				# space may occur a lot in the values, only try space if the others are not present
+				set tempcount [llength [split $line " "]]
+				if {$tempcount > $count} {set count $tempcount; set type space}
+			}
 		}
 	}
 	set line [splitline $line $type]
-	set count [llength $line]
-	# first line may be a header; use second line, unless it is empty/does not exist
-	set dataline [splitline [gets $f] $type]
-	if {![llength $dataline]} {set dataline $line}
+	# create (text) formatting array
+	set xlGeneralFormat	[expr 1]
+	set xlTextFormat [expr 2]
 	if {$method eq "numeric"} {
-		# check the first line to look for numbers
-		# numa($pos) contains 1 if the col is numeric, 2 if empty:
-		# numeric columns may contain empty values, but 
-		# if all tested values are empty, we will not call it numberic
+		if {$type eq "semicolon"} {
+			proc issafenum {el} {
+				if {$el eq "0"} {return 1}
+				regexp {^[0-9]*[,.]?[0-9]*$} $el
+			}
+		} else {
+			proc issafenum {el} {
+				if {$el eq "0"} {return 1}
+				regexp {^[0-9]*\.?[0-9]*$} $el
+			}
+		}
+		# first line may be a header: set all columns to numeric to start
 		unset -nocomplain numa
 		set pos 1
-		foreach el $dataline {
-			if {[string is double $el]} {
-				if {$el eq ""} {
-					set numa($pos) 2
-				} else {
-					set numa($pos) 1
-				}
-			}
+		foreach el $line {
+			set numa($pos) 1
 			incr pos
 		}
-		set poss [array names numa]
+		while 1 {
+			if {[gets $f line] == -1} break
+			set dataline [splitline $line $type]
+			set pos 0
+			foreach el $dataline {
+				incr pos
+				if {![info exists numa($pos)]} {
+					set numa($pos) [issafenum $el]
+				} elseif {$numa($pos) == 0} {
+					continue
+				} else {
+					set numa($pos) [issafenum $el]
+				}
+			}
+			if {![incr numtestlines -1]} break
+		}
+		set fieldinfo {}
+		foreach i [lsort -integer [array names numa]] {
+			if {$numa($i)} {
+				lappend fieldinfo [list $i $xlGeneralFormat]
+			} else {
+				lappend fieldinfo [list $i $xlTextFormat]
+			}
+		}
+	} else {
+		# find maximum number of columns to deal with (irregular)
+		# files that have different number of columns vs the header
+		set count [llength $line]
 		while {[gets $f line] != -1} {
 			if {![incr numtestlines -1]} break
 			set dataline [splitline $line $type]
-			set pos 1
-			foreach el $dataline {
-				if {![string is double $el]} {
-					unset -nocomplain numa($pos)
-				} elseif {$el ne ""} {
-					set numa($pos) 1
-				}
-				incr pos
+			set c [llength $dataline]
+			if {$c > $count} {set count $c}
+		}
+		incr count
+		set fieldinfo {}
+		if {$method eq "convall"} {
+			for {set i 1} {$i < $count} {incr i} {
+				lappend fieldinfo [list $i $xlGeneralFormat]
+			}
+		} else {
+			for {set i 1} {$i < $count} {incr i} {
+				lappend fieldinfo [list $i $xlTextFormat]
 			}
 		}
 	}
 	close $f
-	# create (text) formatting array
-	set xlGeneralFormat	[expr 1]
-	set xlTextFormat [expr 2]
-	set xlWindows	[expr 2]
-	set fieldinfo {}
-	incr count
-	for {set i 1} {$i < $count} {incr i} {
-		if {$method eq "convall" || [info exists numa($i)]} {
-			lappend fieldinfo [list $i $xlGeneralFormat]
-		} else {
-			lappend fieldinfo [list $i $xlTextFormat]
-		}
-	}
 	return [list $type $fieldinfo]
 }
 
@@ -453,7 +484,7 @@ proc interface {} {
 	pack .settings.method -side left -anchor n
 	foreach {name descr ldescr} {
 		all "All as text" "No conversion will happen because everything is imported as text"
-		numeric "Only convert numerical columns" "Conversion can happen for columns containing only numbers (first 10 lines checked)"
+		numeric "Only convert numerical columns" "Conversion can happen for columns containing only numbers (first 1000 lines, without header, checked)"
 		convall "Convert all" "All columns may be converted by Excel"
 		excel "Excel default" "Open data files using Excel without intervention of opentsv"
 	} {
