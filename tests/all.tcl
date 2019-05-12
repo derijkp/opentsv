@@ -118,7 +118,7 @@ test opentsv {1000 numbers} {
 
 test opentsv {test_excel_import.txt} {
 	exec ../opentsv.tcl data/test_excel_import.txt
-} {workbooks -namedarg OpenText Filename */test_excel_import.txt DataType 1 Comma 0 Tab 1 Semicolon 0 Space 0 TextQualifier 1 FieldInfo {{1 2}}} match
+} {workbooks -namedarg OpenText Filename */test_excel_import.txt DataType 1 Comma 0 Tab 1 Semicolon 0 Space 0 TextQualifier 1 FieldInfo {{1 2} {2 1}}} match
 
 test opentsv {GSE6857_series_matrix.txt.gz} {
 	# test suggested by reviewer, caused problems because it is not really a tsv in the original definition:
@@ -155,5 +155,32 @@ test opentsv {space separator} {
 	}]\n
 	analyse_file tmp/test.csv numeric {} {}
 } {space {{1 2} {2 1} {3 2}}}
+
+test opentsv {issafe} {
+	set o [open tmp/result.tsv w]
+	foreach line [split [string trim [file_read data/test_excel_import.txt]] \n] {
+		if {[string index $line 0] eq "\#" || $line eq ""} {
+			puts $o $line
+			continue
+		}
+		foreach {el expected} [split $line \t] break
+		if {[issafe $el]} {
+			puts $o $el\t1
+		} else {
+			puts $o $el\t0
+		}
+	}
+	close $o
+	exec diff tmp/result.tsv data/test_excel_import.txt
+} {}
+
+test opentsv {header issafe} {
+	file_write tmp/test.tsv [deindent {
+		a	march1	1-1
+		1	2	3
+	}]\n
+	analyse_file tmp/test.tsv numeric {} {}
+} {tab {{1 1} {2 2} {3 2}}}
+
 
 testsummarize

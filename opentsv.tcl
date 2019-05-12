@@ -258,6 +258,68 @@ proc openexcel {} {
 	return [$application Workbooks]
 }
 
+array set dateparta {
+	jan 1 feb 1 mar 1 apr 1 may 1 jun 1 jul 1 aug 1 sep 1 sept 1 oct 1 nov 1 dec 1
+	january 1 february 1 march 1 april 1 may 1 june 1 july 1 august 1 september 1 october 1 november 1 december 1
+	Jan 1 Feb 1 Mar 1 Apr 1 May 1 Jun 1 Jul 1 Aug 1 Sep 1 Sept 1 Oct 1 Nov 1 Dec 1
+	January 1 February 1 March 1 April 1 May 1 June 1 July 1 August 1 September 1 October 1 November 1 December 1
+	AM 1 PM 1 P 1 A 1
+}
+foreach el [array names dateparta] {
+	set dateparta([string toupper $el]) 1
+}
+
+proc isdate {el} {
+	global dateparta
+	# e.g. 1-1
+	if {[regexp {^[0-9]+[-/][0-9]+([-/][0-9]+)?$} $el]} {return 1}
+	if {[regexp {^[ ]*$} $el]} {return 0}
+	regsub -all {([A-Za-z])([0-9])} $el {\1-\2} el
+	regsub -all {([0-9])([A-Za-z])} $el {\1-\2} el
+	set date 0
+	# if there is a comma, other separators indicating date (/) or value (month name) should be present
+	if {[string first , $el] != -1 && [string first / $el] == -1} {set comma 1} else {set comma 0}
+	foreach e [split $el {/-:,x }] {
+		if {[info exists dateparta($e)]} {
+			set date 1
+		} elseif {[regexp {^[0-9]+$} $e]} {
+			if {!$comma} {set date 1}
+		} elseif {$e ne ""} {
+			return 0
+		}
+	}
+	return $date
+}
+
+proc issafe {el} {
+	if {[string is double $el] && ![regexp Inf $el]} {
+		# sc notation is changed
+		if {[regexp {[eE]} $el]} {return 0}
+		# leading 0 would be stripped
+		if {[regexp {^0[0-9]} $el]} {return 0}
+		# trailing 0 after . would be stripped
+		if {[regexp {\.[0-9]*0$} $el]} {return 0}
+		# large number could have precision issues
+		foreach temp [regexp -all -inline {[0-9]+} $el] {
+			if {[string length $temp] > 11} {return 0}
+		}
+		return 1
+	}
+	# numbers with thousands separators are unsafe (not recognized by string is double)
+	if {[regexp {^[+-]?[0-9]+(,[0-9][0-9][0-9])+(\.[0-9]*)?([Ee][+-]?[0-9]+)?$} $el]} {return 0}
+	# anything Tcl could see as a date is considered unsafe
+	if {[isdate $el]} {return 0}
+	# could be interpreted as formula or escape
+	if {[regexp {^[=']} $el]} {return 0}
+	if {[regexp {^[+-]+[^+-]} $el]} {return 0}
+	# uneven quoting
+	if {[regexp {^("+).*[^"]("*)$} $el temp e1 e2]} {
+		if {[string length $e1] ne [string length $e2]} {return 0}
+	}
+	if {[regexp {^".*[^"]$} $el]} {return 0}
+	return 1
+}
+
 proc issafenum {el} {
 	if {$el eq "0"} {return 1}
 	regexp {^[0-9]*\.?[0-9]*$} $el
@@ -316,7 +378,11 @@ proc analyse_file {file method sepmethod type} {
 		unset -nocomplain numa
 		set pos 1
 		foreach el $line {
-			set numa($pos) 1
+			if {[issafe $el]} {
+				set numa($pos) 1
+			} else {
+				set numa($pos) 0
+			}
 			incr pos
 		}
 		while 1 {
@@ -549,7 +615,7 @@ The \"Install\" will copy it to an installation folder and register this copy." 
 	}
 }
 
-if {![llength $argv]} {
+if {![info exists argv] || ![llength $argv]} {
 	interface
 } else {
 	foreach file $argv {
