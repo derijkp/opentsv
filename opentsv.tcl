@@ -292,6 +292,7 @@ proc isdate {el} {
 }
 
 proc issafe {el} {
+	regexp {^"(.*)"$} $el temp el
 	if {[string is double $el] && ![regexp Inf $el]} {
 		# sc notation is changed
 		if {[regexp {[eE]} $el]} {return 0}
@@ -334,8 +335,12 @@ proc analyse_file {file method sepmethod type} {
 	unset -nocomplain numa
 	set f [open $file]
 	# skip comments
+	set comments {}
 	while {[gets $f line] != -1} {
-		if {[string length $line] && [string index $line 0] ne "\#"} break
+		if {![string length $line]} continue
+		set first [string index $line 0]
+		if {$first ne "\#" && $first ne "\!"} break
+		lappend comments $line
 	}
 	# Determine type
 	if {$sepmethod in "comma tab semicolon space"} {
@@ -385,6 +390,17 @@ proc analyse_file {file method sepmethod type} {
 			}
 			incr pos
 		}
+		foreach line $comments {
+			set line [splitline $line $type]
+			set pos 1
+			foreach el $line {
+				if {![issafe $el]} {
+					set numa($pos) 0
+				}
+				incr pos
+			}
+		}
+		# check comment lines as well
 		while 1 {
 			if {[gets $f line] == -1} break
 			set dataline [splitline $line $type]
