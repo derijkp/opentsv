@@ -1,0 +1,70 @@
+checkpapers
+===========
+
+We did a scan of 15 journals and GEO for errors in genelists created by
+Excel conversion. Papers from 2010 to 2019 (up til May) were downloaded
+and checked for supplementary Excel files. The papers in each journal/db
+were obtained by either scraping the journal website directly or by
+querying pubmed (the resulting xml files used further are available in the
+dir source). For PLoS One the papers were limited to papers with genome or
+transciptome in the abstract using the query.
+
+The algorithm for detecting gene lists and errors in the gene lists
+is the same (but reimplemented) as used in:
+Ziemann,M. et al. (2016) Gene name errors are widespread in the scientific
+literature. Genome Biology, 17, 177
+
+The results of this analysis as well as the code used to run the analysis
+are in this directory.
+
+Result files
+------------
+A summary file (<source>_siummary.txt) is made per journal, containing the following fields
+year: year
+papers: number of papers scanned for that year in the given journal
+files: number of (Excel) supplementary files
+genelist: number of papers with at least one supplementary file containing a gene list
+error: number of papers with at least one supplementary file containing a gene list with a conversion error
+pcterror: percentage of genelist containing papers with errors
+
+The results per journal are in tab-delimited tables (<source>_result.txt)
+containing at least one line per paper with the following fields:
+source: journal/db
+year: year of publication
+id: id identifying paper/db entry
+url: url of paper/db entry
+suppfile: supplementary file url, empty if no supplementary xls(x) file was found, if more than one -> multiple lines
+genelist: 1 if it contains genelist; 0 if xls(x), but no genelist, n for no xls(x) suppl, s for (xls/zip) parse error
+geneerrors: number of errors, 0 for xls without errors, n for no xls(x) suppl, s for (xls/zip) parse error
+
+
+
+Results per paper
+-----------------
+The data for all journals is combined, per paper, in result_per_paper.tsv. This has the following fields:
+year: year of publication
+id: id identifying paper/db entry
+source: journal/db
+nr_suppfiles: number of supplementary Excel files
+nr_genelists: number of supplementary Excel files that contain a gene list
+nr_errors: number of errors found in supplementary Excel files of the paper
+has_suppfile: 1 if there were supplementary Excel files, 0 if not
+has_genelist: 1 if there were gene lists, 0 if not
+has_error: 1 if any errors were found, 0 if not
+
+Summary files
+-------------
+There are also some overview/summary files:
+overview.tsv: overview of all per year
+overview-geo.tsv: overview per year without GEO
+pct_per_paper_overview.tsv: overview per journal
+
+Running the code
+----------------
+To run the code you need a Linux system with genomecomb installed. The code also requires
+wget and ssconvert.
+You can (re)run the code using
+./checkpapers.tcl
+or start a genomecomb shell using "cg sh" and start parts manually by
+copy/pasting
+Existing result files will be renamed to *.old before making the new result file.

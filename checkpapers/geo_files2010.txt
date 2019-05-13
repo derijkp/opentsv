@@ -1,0 +1,208 @@
+source	year	id	url	suppfile
+geo	2010	GSE21970	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE21nnn/GSE21970/	
+geo	2010	GSE26090	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE26nnn/GSE26090/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE26nnn/GSE26090//suppl/GSE26090_results.xls.gz
+geo	2010	GSE26138	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE26nnn/GSE26138/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE26nnn/GSE26138//suppl/GSE26138_RatioData.xls.gz
+geo	2010	GSE21495	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE21nnn/GSE21495/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE21nnn/GSE21495//suppl/GSE21495_BenjaminiHochberg_p-values_for_4hybridzations_ChIPchip.xls.gz
+geo	2010	GSE21495	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE21nnn/GSE21495/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE21nnn/GSE21495//suppl/GSE21495_ERG_genome_wide_screen_in_acute_leukemia_candidate_genes.xls.gz
+geo	2010	GSE25916	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE25nnn/GSE25916/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE25nnn/GSE25916//suppl/GSE25916_Compared_data.xls.gz
+geo	2010	GSE11658	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE11nnn/GSE11658/	
+geo	2010	GSE11657	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE11nnn/GSE11657/	
+geo	2010	GSE25068	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE25nnn/GSE25068/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE25nnn/GSE25068//suppl/GSE25068_Pcg_TrxG_RAW_DATA.xls.gz
+geo	2010	GSE24451	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE24nnn/GSE24451/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE24nnn/GSE24451//suppl/GSE24451.xls.gz
+geo	2010	GSE25043	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE25nnn/GSE25043/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE25nnn/GSE25043//suppl/GSE25043.xls.gz
+geo	2010	GSE18845	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18845/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18845//suppl/GSE18845_Significant_genes_TGR_vs_HO15.xls.gz
+geo	2010	GSE19669	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE19nnn/GSE19669/	
+geo	2010	GSE19359	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE19nnn/GSE19359/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE19nnn/GSE19359//suppl/GSE19359_Result_files.xls.gz
+geo	2010	GSE18457	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18457/	
+geo	2010	GSE16002	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16002/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE16nnn/GSE16002//suppl/GSE16002_EBF_gcrmanorm.xls.gz
+geo	2010	GSE16002	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16002/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE16nnn/GSE16002//suppl/GSE16002_pax5_gcrmanorm.xls.gz
+geo	2010	GSE16002	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16002/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE16nnn/GSE16002//suppl/GSE16002_rag2_gcrmanorm.xls.gz
+geo	2010	GSE24417	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE24nnn/GSE24417/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE24nnn/GSE24417//suppl/GSE24417_MAQC-II_TGx_Iconix417_ClinInfo_25AUG2007.xls.gz
+geo	2010	GSE24208	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE24nnn/GSE24208/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE24nnn/GSE24208//suppl/GSE24208_Normalized_Data-ES_based.xls.gz
+geo	2010	GSE24208	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE24nnn/GSE24208/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE24nnn/GSE24208//suppl/GSE24208_Normalized_Data-MEF_based.xls.gz
+geo	2010	GSE24080	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE24nnn/GSE24080/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE24nnn/GSE24080//suppl/GSE24080_MM_UAMS565_ClinInfo_27Jun2008_LS_clean.xls.gz
+geo	2010	GSE22235	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE22nnn/GSE22235/	
+geo	2010	GSE18650	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18650/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18650//suppl/GSE18650_p73_ME180_BindingSites_hg17.xls.gz
+geo	2010	GSE24018	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE24nnn/GSE24018/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE24nnn/GSE24018//suppl/GSE24018.xls.gz
+geo	2010	GSE23065	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE23nnn/GSE23065/	
+geo	2010	GSE15229	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE15nnn/GSE15229/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE15nnn/GSE15229//suppl/GSE15229_processed_data.xls.gz
+geo	2010	GSE18859	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18859/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18859//suppl/GSE18859_stats.xls.gz
+geo	2010	GSE23725	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE23nnn/GSE23725/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE23nnn/GSE23725//suppl/GSE23725_Control_4-Vinylcyclohexene_Diepoxide.xls.gz
+geo	2010	GSE23725	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE23nnn/GSE23725/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE23nnn/GSE23725//suppl/GSE23725_Control_Menadione.xls.gz
+geo	2010	GSE23725	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE23nnn/GSE23725/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE23nnn/GSE23725//suppl/GSE23725_Control_Methoxychlor.xls.gz
+geo	2010	GSE14700	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE14nnn/GSE14700/	
+geo	2010	GSE19581	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE19nnn/GSE19581/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE19nnn/GSE19581//suppl/GSE19581_Downregulated_genes_by_HDACi_1.5-fold_p%3D0.05.xls.gz
+geo	2010	GSE19581	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE19nnn/GSE19581/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE19nnn/GSE19581//suppl/GSE19581_Upregulated_genes_by_HDACi_1.5-fold_p%3D0.05.xls.gz
+geo	2010	GSE23342	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE23nnn/GSE23342/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE23nnn/GSE23342//suppl/GSE23342_G3BP_vs_Mock_4_16_08Cq.xls.gz
+geo	2010	GSE17970	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE17nnn/GSE17970/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE17nnn/GSE17970//suppl/GSE17970_supplemental_table_1.xls.gz
+geo	2010	GSE17970	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE17nnn/GSE17970/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE17nnn/GSE17970//suppl/GSE17970_supplemental_table_2.xls.gz
+geo	2010	GSE17970	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE17nnn/GSE17970/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE17nnn/GSE17970//suppl/GSE17970_supplemental_table_3.xls.gz
+geo	2010	GSE13786	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE13nnn/GSE13786/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE13nnn/GSE13786//suppl/GSE13786_gcrma_results.xls
+geo	2010	GSE22546	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE22nnn/GSE22546/	
+geo	2010	GSE17757	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE17nnn/GSE17757/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE17nnn/GSE17757//suppl/GSE17757_HuGene1.0_human_probe.xls.gz
+geo	2010	GSE17757	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE17nnn/GSE17757/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE17nnn/GSE17757//suppl/GSE17757_HuGene1.0_maca_probe.xls.gz
+geo	2010	GSE18069	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18069/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18069//suppl/GSE18069_guosong_solexa_human_monkey_miRNA_readsnumber.xls.gz
+geo	2010	GSE18013	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18013/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18013//suppl/GSE18013_guosong_solexa_human_monkey_miRNA_readsnumber.xls.gz
+geo	2010	GSE18012	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18012/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18012//suppl/GSE18012_guosong_solexa_human_monkey_miRNA_readsnumber.xls.gz
+geo	2010	GSE21792	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE21nnn/GSE21792/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE21nnn/GSE21792//suppl/GSE21792_GeneSifterProcessedData.xls.gz
+geo	2010	GSE22132	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE22nnn/GSE22132/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE22nnn/GSE22132//suppl/GSE22132_p0511_data_050621.xls.gz
+geo	2010	GSE19358	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE19nnn/GSE19358/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE19nnn/GSE19358//suppl/GSE19358_Result_files.xls.gz
+geo	2010	GSE16401	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16401/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE16nnn/GSE16401//suppl/GSE16401_SAM_Moneymaker_5h%2B_vs._Moneymaker_5h.xls.gz
+geo	2010	GSE16401	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16401/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE16nnn/GSE16401//suppl/GSE16401_SAM_PI365967_5h%2B_vs._PI365967_5h.xls.gz
+geo	2010	GSE21738	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE21nnn/GSE21738/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE21nnn/GSE21738//suppl/GSE21738_Full_FoldChange.xls.gz
+geo	2010	GSE21738	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE21nnn/GSE21738/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE21nnn/GSE21738//suppl/GSE21738_GeneList.xls.gz
+geo	2010	GSE21681	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE21nnn/GSE21681/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE21nnn/GSE21681//suppl/GSE21681_ExpressionTables.xls.gz
+geo	2010	GSE13743	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE13nnn/GSE13743/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE13nnn/GSE13743//suppl/GSE13743_Zhang_arrays_logs.xls
+geo	2010	GSE18783	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18783/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18783//suppl/GSE18783_MANOVA_AAA.xls.gz
+geo	2010	GSE18783	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18783/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18783//suppl/GSE18783_MANOVA_DAA.xls.gz
+geo	2010	GSE13507	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE13nnn/GSE13507/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE13nnn/GSE13507//suppl/GSE13507_clinical_info.xls
+geo	2010	GSE13507	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE13nnn/GSE13507/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE13nnn/GSE13507//suppl/GSE13507_gene_classifiers.xls
+geo	2010	GSE20592	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE20nnn/GSE20592/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE20nnn/GSE20592//suppl/GSE20592_processed_data.xls.gz
+geo	2010	GSE21429	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE21nnn/GSE21429/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE21nnn/GSE21429//suppl/GSE21429_ratio_lists_from_Rosetta_Resolver.xls.gz
+geo	2010	GSE21364	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE21nnn/GSE21364/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE21nnn/GSE21364//suppl/GSE21364_fold-change_data.xls.gz
+geo	2010	GSE19325	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE19nnn/GSE19325/	
+geo	2010	GSE21221	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE21nnn/GSE21221/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE21nnn/GSE21221//suppl/GSE21221_codelink_median-normalized.xls.gz
+geo	2010	GSE21339	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE21nnn/GSE21339/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE21nnn/GSE21339//suppl/GSE21339_Raw_spot_density.xls.gz
+geo	2010	GSE20609	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE20nnn/GSE20609/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE20nnn/GSE20609//suppl/GSE20609_array_Pol3_Enriched_Regions.xls.gz
+geo	2010	GSE21310	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE21nnn/GSE21310/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE21nnn/GSE21310//suppl/GSE21310_Analysis_Report.xls.gz
+geo	2010	GSE15650	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE15nnn/GSE15650/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE15nnn/GSE15650//suppl/GSE15650_loess_normalized.xls.gz
+geo	2010	GSE19423	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE19nnn/GSE19423/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE19nnn/GSE19423//suppl/GSE19423_clinical_information.xls.gz
+geo	2010	GSE18535	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18535/	
+geo	2010	GSE17260	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE17nnn/GSE17260/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE17nnn/GSE17260//suppl/GSE17260_additional_clinical_information.xls.gz
+geo	2010	GSE18370	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18370/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18370//suppl/GSE18370_MT1_vs_NT_1.5_fold_and_greater_changed_P_less_than_0.05.xls.gz
+geo	2010	GSE18370	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18370/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18370//suppl/GSE18370_NT_vs_PT_1.5fold_and_greater_changed_P_less_than_0.05.xls.gz
+geo	2010	GSE20106	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE20nnn/GSE20106/	
+geo	2010	GSE20110	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE20nnn/GSE20110/	
+geo	2010	GSE18604	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18604/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18604//suppl/GSE18604_GeneSpring_results5-16-09.xls.gz
+geo	2010	GSE12988	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE12nnn/GSE12988/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE12nnn/GSE12988//suppl/GSE12988_rawdatatrieparID.xls.gz
+geo	2010	GSE11482	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE11nnn/GSE11482/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE11nnn/GSE11482//suppl/GSE11482_Supplemental_Table_1.xls
+geo	2010	GSE11482	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE11nnn/GSE11482/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE11nnn/GSE11482//suppl/GSE11482_Supplemental_Table_2.xls
+geo	2010	GSE11482	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE11nnn/GSE11482/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE11nnn/GSE11482//suppl/GSE11482_Supplemental_Table_3.xls
+geo	2010	GSE17944	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE17nnn/GSE17944/	
+geo	2010	GSE20344	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE20nnn/GSE20344/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE20nnn/GSE20344//suppl/GSE20344_145genetree_MatrixTable_BLASucrose.xls.gz
+geo	2010	GSE20220	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE20nnn/GSE20220/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE20nnn/GSE20220//suppl/GSE20220_significant_results.xls.gz
+geo	2010	GSE16526	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16526/	
+geo	2010	GSE20194	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE20nnn/GSE20194/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE20nnn/GSE20194//suppl/GSE20194_MDACC_Sample_Info.xls.gz
+geo	2010	GSE16759	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE16nnn/GSE16759/	
+geo	2010	GSE17961	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE17nnn/GSE17961/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE17nnn/GSE17961//suppl/GSE17961_combined_3_chips.xls.gz
+geo	2010	GSE20086	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE20nnn/GSE20086/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE20nnn/GSE20086//suppl/GSE20086_Expression_Analysis.xls.gz
+geo	2010	GSE19875	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE19nnn/GSE19875/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE19nnn/GSE19875//suppl/GSE19875_I7R_043_genelists.xls.gz
+geo	2010	GSE18711	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18711/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18711//suppl/GSE18711_Acidobacteria_Phylochip_Means_and_Normalized%20Data.xls.gz
+geo	2010	GSE18417	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18417/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18417//suppl/GSE18417_REAT11vsWTrep1.xls.gz
+geo	2010	GSE18417	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE18nnn/GSE18417/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE18nnn/GSE18417//suppl/GSE18417_REAT11vsWTrep2.xls.gz
+geo	2010	GSE19623	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE19nnn/GSE19623/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE19nnn/GSE19623//suppl/GSE19623_IFNgamma_raw_data.xls.gz
+geo	2010	GSE19623	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE19nnn/GSE19623/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE19nnn/GSE19623//suppl/GSE19623_IL-4_raw_data.xls.gz
+geo	2010	GSE19623	ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE19nnn/GSE19623/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/series/GSE19nnn/GSE19623//suppl/GSE19623_raw_data.xls.gz
+geo	2010	GPL10673	ftp://ftp.ncbi.nlm.nih.gov/geo/platforms/GPL10nnn/GPL10673/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/platforms/GPL10nnn/GPL10673//suppl/GPL10673_MEEBO_set.xls.gz
+geo	2010	GPL9517	ftp://ftp.ncbi.nlm.nih.gov/geo/platforms/GPL9nnn/GPL9517/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/platforms/GPL9nnn/GPL9517//suppl/GPL9517_oligo_sequences.xls.gz
+geo	2010	GPL11064	ftp://ftp.ncbi.nlm.nih.gov/geo/platforms/GPL11nnn/GPL11064/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/platforms/GPL11nnn/GPL11064//suppl/GPL11064_yeast_V1.1.3_genelist_s%2B.xls.gz
+geo	2010	GPL10875	ftp://ftp.ncbi.nlm.nih.gov/geo/platforms/GPL10nnn/GPL10875/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/platforms/GPL10nnn/GPL10875//suppl/GPL10875_Complete_annotations.xls.gz
+geo	2010	GPL9142	ftp://ftp.ncbi.nlm.nih.gov/geo/platforms/GPL9nnn/GPL9142/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/platforms/GPL9nnn/GPL9142//suppl/GPL9142_oligo_seq.xls.gz
+geo	2010	GSM546294	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM546nnn/GSM546294/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM546nnn/GSM546294//suppl/GSM546294_LPS_RAW_2.xls.gz
+geo	2010	GSM546293	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM546nnn/GSM546293/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM546nnn/GSM546293//suppl/GSM546293_LPS_RAW_1.xls.gz
+geo	2010	GSM546292	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM546nnn/GSM546292/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM546nnn/GSM546292//suppl/GSM546292_Candida_RAW_3.xls.gz
+geo	2010	GSM546291	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM546nnn/GSM546291/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM546nnn/GSM546291//suppl/GSM546291_Candida_RAW_2.xls.gz
+geo	2010	GSM546290	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM546nnn/GSM546290/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM546nnn/GSM546290//suppl/GSM546290_Candida_RAW_1.xls.gz
+geo	2010	GSM296192	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM296nnn/GSM296192/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM296nnn/GSM296192//suppl/GSM296192_H3K4me3_drought.tag_count.only_unique_matching.xls.gz
+geo	2010	GSM296191	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM296nnn/GSM296191/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM296nnn/GSM296191//suppl/GSM296191_H3K4me2_drought.tag_count.only_unique_matching.xls.gz
+geo	2010	GSM296190	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM296nnn/GSM296190/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM296nnn/GSM296190//suppl/GSM296190_H3K4me1_drought.tag_count.only_unique_matching.xls.gz
+geo	2010	GSM296189	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM296nnn/GSM296189/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM296nnn/GSM296189//suppl/GSM296189_H3K4me3_watered.tag_count.only_unique_matching.xls.gz
+geo	2010	GSM296188	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM296nnn/GSM296188/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM296nnn/GSM296188//suppl/GSM296188_H3K4me2_watered.tag_count.only_unique_matching.xls.gz
+geo	2010	GSM296187	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM296nnn/GSM296187/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM296nnn/GSM296187//suppl/GSM296187_H3K4me1_watered.tag_count.only_unique_matching.xls.gz
+geo	2010	GSM491106	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM491nnn/GSM491106/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM491nnn/GSM491106//suppl/GSM491106_04_M13.0_091782-0921-Yauk-Ref%232_2-390_Data.xls.gz
+geo	2010	GSM491105	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM491nnn/GSM491105/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM491nnn/GSM491105//suppl/GSM491105_03_M13.0_091779-0921-Yauk-Ref%232_1-390_Data.xls.gz
+geo	2010	GSM491104	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM491nnn/GSM491104/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM491nnn/GSM491104//suppl/GSM491104_02_M13.0_091776-0921-Yauk-Ref%231_2-380_Data.xls.gz
+geo	2010	GSM491103	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM491nnn/GSM491103/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM491nnn/GSM491103//suppl/GSM491103_01_M13.0_091768-0921-Yauk-Ref%231_1-360_Data.xls.gz
+geo	2010	GSM459762	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM459nnn/GSM459762/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM459nnn/GSM459762//suppl/GSM459762_110593_trim_2E-3_500.xls.gz
+geo	2010	GSM459762	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM459nnn/GSM459762/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM459nnn/GSM459762//suppl/GSM459762_110593_trim_2E-3_500_neg.xls.gz
+geo	2010	GSM459761	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM459nnn/GSM459761/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM459nnn/GSM459761//suppl/GSM459761_100263_trim_2E-3_500.xls.gz
+geo	2010	GSM459761	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM459nnn/GSM459761/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM459nnn/GSM459761//suppl/GSM459761_100263_trim_2E-3_500_neg.xls.gz
+geo	2010	GSM553687	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM553nnn/GSM553687/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM553nnn/GSM553687//suppl/GSM553687.xls.gz
+geo	2010	GSM568878	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM568nnn/GSM568878/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM568nnn/GSM568878//suppl/GSM568878_Genomic_Workbench_data.xls.gz
+geo	2010	GSM568877	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM568nnn/GSM568877/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM568nnn/GSM568877//suppl/GSM568877_Genomic_Workbench_data.xls.gz
+geo	2010	GSM366926	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366926/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366926//suppl/GSM366926.xls.gz
+geo	2010	GSM366925	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366925/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366925//suppl/GSM366925.xls.gz
+geo	2010	GSM366924	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366924/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366924//suppl/GSM366924.xls.gz
+geo	2010	GSM366923	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366923/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366923//suppl/GSM366923.xls.gz
+geo	2010	GSM366922	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366922/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366922//suppl/GSM366922.xls.gz
+geo	2010	GSM366921	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366921/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366921//suppl/GSM366921.xls.gz
+geo	2010	GSM366920	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366920/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366920//suppl/GSM366920.xls.gz
+geo	2010	GSM366919	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366919/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366919//suppl/GSM366919.xls.gz
+geo	2010	GSM366918	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366918/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366918//suppl/GSM366918.xls.gz
+geo	2010	GSM366917	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366917/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366917//suppl/GSM366917.xls.gz
+geo	2010	GSM366915	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366915/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366915//suppl/GSM366915.xls.gz
+geo	2010	GSM366913	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366913/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366913//suppl/GSM366913.xls.gz
+geo	2010	GSM366910	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366910/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366910//suppl/GSM366910.xls.gz
+geo	2010	GSM366908	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366908/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366908//suppl/GSM366908.xls.gz
+geo	2010	GSM366906	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366906/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366906//suppl/GSM366906.xls.gz
+geo	2010	GSM366904	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366904/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366904//suppl/GSM366904.xls.gz
+geo	2010	GSM366903	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366903/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366903//suppl/GSM366903.xls.gz
+geo	2010	GSM366902	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366902/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366902//suppl/GSM366902.xls.gz
+geo	2010	GSM366901	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366901/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366901//suppl/GSM366901.xls.gz
+geo	2010	GSM366900	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366900/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366900//suppl/GSM366900.xls.gz
+geo	2010	GSM366899	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366899/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366899//suppl/GSM366899.xls.gz
+geo	2010	GSM366898	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366898/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366898//suppl/GSM366898.xls.gz
+geo	2010	GSM366897	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366897/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366897//suppl/GSM366897.xls.gz
+geo	2010	GSM366896	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366896/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366896//suppl/GSM366896.xls.gz
+geo	2010	GSM366895	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366895/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366895//suppl/GSM366895.xls.gz
+geo	2010	GSM366894	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366894/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366894//suppl/GSM366894.xls.gz
+geo	2010	GSM366893	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366893/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366893//suppl/GSM366893.xls.gz
+geo	2010	GSM366892	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366892/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366892//suppl/GSM366892.xls.gz
+geo	2010	GSM366891	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366891/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366891//suppl/GSM366891.xls.gz
+geo	2010	GSM366890	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366890/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366890//suppl/GSM366890.xls.gz
+geo	2010	GSM366889	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366889/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366889//suppl/GSM366889.xls.gz
+geo	2010	GSM366888	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366888/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366888//suppl/GSM366888.xls.gz
+geo	2010	GSM366887	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366887/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366887//suppl/GSM366887.xls.gz
+geo	2010	GSM366886	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366886/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366886//suppl/GSM366886.xls.gz
+geo	2010	GSM366885	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366885/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366885//suppl/GSM366885.xls.gz
+geo	2010	GSM366884	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366884/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366884//suppl/GSM366884.xls.gz
+geo	2010	GSM366883	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366883/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366883//suppl/GSM366883.xls.gz
+geo	2010	GSM366882	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366882/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366882//suppl/GSM366882.xls.gz
+geo	2010	GSM366881	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366881/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366881//suppl/GSM366881.xls.gz
+geo	2010	GSM366880	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM366nnn/GSM366880/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM366nnn/GSM366880//suppl/GSM366880.xls.gz
+geo	2010	GSM559651	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM559nnn/GSM559651/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM559nnn/GSM559651//suppl/GSM559651.xls.gz
+geo	2010	GSM559650	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM559nnn/GSM559650/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM559nnn/GSM559650//suppl/GSM559650.xls.gz
+geo	2010	GSM480160	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM480nnn/GSM480160/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM480nnn/GSM480160//suppl/GSM480160_GA0840_Drosophila_S2_RNAseq.xls.gz
+geo	2010	GSM531830	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM531nnn/GSM531830/	
+geo	2010	GSM531829	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM531nnn/GSM531829/	
+geo	2010	GSM531828	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM531nnn/GSM531828/	
+geo	2010	GSM531827	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM531nnn/GSM531827/	
+geo	2010	GSM531826	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM531nnn/GSM531826/	
+geo	2010	GSM531825	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM531nnn/GSM531825/	
+geo	2010	GSM531824	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM531nnn/GSM531824/	
+geo	2010	GSM531823	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM531nnn/GSM531823/	
+geo	2010	GSM531822	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM531nnn/GSM531822/	
+geo	2010	GSM531821	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM531nnn/GSM531821/	
+geo	2010	GSM531820	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM531nnn/GSM531820/	
+geo	2010	GSM531819	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM531nnn/GSM531819/	
+geo	2010	GSM461609	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM461nnn/GSM461609/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM461nnn/GSM461609//suppl/GSM461609_damo_coverage_per_orf.xls.gz
+geo	2010	GSM502399	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM502nnn/GSM502399/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM502nnn/GSM502399//suppl/GSM502399_Va3.rawdata.xls.gz
+geo	2010	GSM502398	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM502nnn/GSM502398/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM502nnn/GSM502398//suppl/GSM502398_Ovp3.rawdata.xls.gz
+geo	2010	GSM502397	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM502nnn/GSM502397/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM502nnn/GSM502397//suppl/GSM502397_Sxp3.rawdata.xls.gz
+geo	2010	GSM502396	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM502nnn/GSM502396/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM502nnn/GSM502396//suppl/GSM502396_Va2.rawdata.xls.gz
+geo	2010	GSM502395	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM502nnn/GSM502395/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM502nnn/GSM502395//suppl/GSM502395_Ovp2.rawdata.xls.gz
+geo	2010	GSM502394	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM502nnn/GSM502394/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM502nnn/GSM502394//suppl/GSM502394_Sxp2.rawdata.xls.gz
+geo	2010	GSM502393	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM502nnn/GSM502393/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM502nnn/GSM502393//suppl/GSM502393_Va1-rawdata.xls.gz
+geo	2010	GSM502392	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM502nnn/GSM502392/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM502nnn/GSM502392//suppl/GSM502392_Ovp1.rawdata.xls.gz
+geo	2010	GSM502391	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM502nnn/GSM502391/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM502nnn/GSM502391//suppl/GSM502391_Sxp1.rawdata.xls.gz
+geo	2010	GSM448869	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM448nnn/GSM448869/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM448nnn/GSM448869//suppl/GSM448869_MA148_hypoxia_2.xls.gz
+geo	2010	GSM448868	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM448nnn/GSM448868/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM448nnn/GSM448868//suppl/GSM448868_MA148_hypoxia_1.xls.gz
+geo	2010	GSM448867	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM448nnn/GSM448867/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM448nnn/GSM448867//suppl/GSM448867_MA148_control_2.xls.gz
+geo	2010	GSM448866	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM448nnn/GSM448866/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM448nnn/GSM448866//suppl/GSM448866_MA148_control_1.xls.gz
+geo	2010	GSM448865	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM448nnn/GSM448865/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM448nnn/GSM448865//suppl/GSM448865_HUVEC_hypoxia_4.xls.gz
+geo	2010	GSM448864	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM448nnn/GSM448864/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM448nnn/GSM448864//suppl/GSM448864_HUVEC_hypoxia_3.xls.gz
+geo	2010	GSM448863	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM448nnn/GSM448863/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM448nnn/GSM448863//suppl/GSM448863_HUVEC_hypoxia_2.xls.gz
+geo	2010	GSM448862	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM448nnn/GSM448862/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM448nnn/GSM448862//suppl/GSM448862_HUVEC_hypoxia_1.xls.gz
+geo	2010	GSM448861	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM448nnn/GSM448861/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM448nnn/GSM448861//suppl/GSM448861_HUVEC_control_4.xls.gz
+geo	2010	GSM448860	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM448nnn/GSM448860/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM448nnn/GSM448860//suppl/GSM448860_HUVEC_control_3.xls.gz
+geo	2010	GSM448859	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM448nnn/GSM448859/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM448nnn/GSM448859//suppl/GSM448859_HUVEC_control_2.xls.gz
+geo	2010	GSM448858	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM448nnn/GSM448858/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM448nnn/GSM448858//suppl/GSM448858_HUVEC_control_1.xls.gz
+geo	2010	GSM415050	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM415nnn/GSM415050/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM415nnn/GSM415050//suppl/GSM415050_Pcl2_peaks.xls.gz
+geo	2010	GSM420163	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM420nnn/GSM420163/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM420nnn/GSM420163//suppl/GSM420163.xls.gz
+geo	2010	GSM420162	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM420nnn/GSM420162/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM420nnn/GSM420162//suppl/GSM420162.xls.gz
+geo	2010	GSM420161	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM420nnn/GSM420161/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM420nnn/GSM420161//suppl/GSM420161.xls.gz
+geo	2010	GSM420160	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM420nnn/GSM420160/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM420nnn/GSM420160//suppl/GSM420160.xls.gz
+geo	2010	GSM420159	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM420nnn/GSM420159/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM420nnn/GSM420159//suppl/GSM420159.xls.gz
+geo	2010	GSM420158	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM420nnn/GSM420158/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM420nnn/GSM420158//suppl/GSM420158.xls.gz
+geo	2010	GSM420157	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM420nnn/GSM420157/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM420nnn/GSM420157//suppl/GSM420157.xls.gz
+geo	2010	GSM420156	ftp://ftp.ncbi.nlm.nih.gov/geo/samples/GSM420nnn/GSM420156/	ftp://ftp.ncbi.nlm.nih.gov:21/geo/samples/GSM420nnn/GSM420156//suppl/GSM420156.xls.gz
