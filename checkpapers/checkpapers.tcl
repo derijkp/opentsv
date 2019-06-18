@@ -814,8 +814,9 @@ summary rna_result.txt
 # Input file: go to NCBI pubmed, perform an advanced search based on
 # Journal name and date of publication
 # search:
-# https://www.ncbi.nlm.nih.gov/pubmed/?term=(%22Nature%22[Journal])+AND+(%222010%22[Date+-+Publication]+%3A+%222019%22[Date+-+Publication])
-# query: ("Nature"[Journal]) AND ("2010"[Date - Publication] : "2019"[Date - Publication]) 
+# https://www.ncbi.nlm.nih.gov/pubmed/?term=(((%22Nature%22%5BJournal%5D)+AND+genome%5BTitle%2FAbstract%5D))+AND+(%222015%22%5BDate+-+Publication%5D+%3A+%222018%22%5BDate+-+Publication%5D)
+# ((("Nature"[Journal]) AND genome[Title/Abstract])) AND ("2015"[Date - Publication] : "2018"[Date - Publication])
+# https://www.ncbi.nlm.nih.gov/pubmed/?term=(%22Nature%22%5BJournal%5D)+AND+(%222010%22%5BDate+-+Publication%5D+%3A+%222018%22%5BDate+-+Publication%5D)
 # save the xml as the source:
 set source nature
 set file source/nature_source.xml.zst
@@ -831,6 +832,7 @@ summary nature_result.txt
 # Input file: go to NCBI pubmed, perform an advanced search based on
 # Journal name and date of publication
 # plosone_source.xml made using:
+# ((("plos one"[Journal]) AND genome[Title/Abstract])) AND ("2010"[Date - Publication] : "2019"[Date - Publication])
 # https://www.ncbi.nlm.nih.gov/pubmed/?term=(((%22plos+one%22%5BJournal%5D)+AND+(genome%5BTitle%2FAbstract%5D+OR+transcriptome%5BTitle%2FAbstract%5D)))+AND+(%222010%22%5BDate+-+Publication%5D+%3A+%222019%22%5BDate+-+Publication%5D)
 # ((("plos one"[Journal]) AND (genome[Title/Abstract] OR transcriptome[Title/Abstract]))) AND ("2010"[Date - Publication] : "2019"[Date - Publication]) 
 # and save to file as xml
@@ -896,6 +898,14 @@ summary dnaresearch_result.txt
 
 # overview
 # --------
+set summaries [glob *_summary.txt]
+# set summaries [list_remove $summaries geo_summary.txt]
+exec cg cat {*}$summaries \
+| cg select -g year -gc {sum(genelist),sum(error)} \
+| cg select -f {year num_with_genelists=$sum_genelist num_errors=$sum_error {pct=format("%.2f",100.0*$sum_error/($sum_error + $sum_genelist))}} \
+> summary_overview.tsv
+
+# cg cat *_summary.txt | cg select -g year -gc 'sum(genelist),sum(error),avg(pcterror)'
 
 # results per paper
 set files [glob *_result.txt]
@@ -963,7 +973,7 @@ p1 = ggplot(d, aes(x = year, y = count, fill = source)) +
 	scale_fill_manual(values=c("grey","darkgrey")) +
 	ggtitle("A. Number of papers with errors in supplements") +
 	theme_bw()
-# ggsave("number_of_errors_per_year.png")
+ggsave("number_of_errors_per_year.png")
 
 p=read.table("pct_per_paper_overview.tsv",header=TRUE,sep="\t")
 p$source = factor(p$source,levels=rev(p$source))
@@ -979,7 +989,9 @@ p2 = ggplot(p, aes(x = source, y = pcterror)) +
 	ggtitle("B. Percentage of papers with errors in supplements") +
 	coord_flip() +
 	theme_bw()
-# ggsave("pct_errors_per_journal_2018.png")
+p2
+
+ggsave("pct_errors_per_journal_2018.png")
 
 g <- arrangeGrob(p1, p2, nrow=1)
 ggsave(file="Fig1.png", g)
@@ -988,4 +1000,99 @@ ggsave(file="Fig1.png", g)
 
 exec Rscript $tempfile
 
-# make percentages graph
+if 0 {
+# Just some queries to get some overview numbers (and results in comments)
+# This is not executed with the script because the "if 0 {}" around it
+
+set files [glob *_result.txt]
+# nr of supplementary files
+exec cg cat {*}$files | cg select -g year -q {$suppfile ne ""}
+#year    count
+#2010    2917
+#2011    4904
+#2012    8729
+#2013    9963
+#2014    12202
+#2015    13340
+#2016    12532
+#2017    13717
+#2018    13299
+#2019    5824
+#total   97427
+
+# nr of supplementary files with genelists
+exec cg cat {*}$files | cg select -g {year * genelist} -q {$suppfile ne "" and $genelist ni "0 n s"}
+#2010    1       428
+#2011    1       895
+#2012    1       1434
+#2013    1       1815
+#2014    1       2274
+#2015    1       2547
+#2016    1       2897
+#2017    1       3220
+#2018    1       3174
+#2019    1       1350
+#total   1       20034
+
+# nr of supplementary files with genelists and errors
+exec cg cat {*}$files | cg select -g {year} -q {$suppfile ne "" and $genelist ni "0 n s" and def($geneerrors,0) > 0}
+#year    count
+#2010    117
+#2011    137
+#2012    231
+#2013    325
+#2014    430
+#2015    560
+#2016    800
+#2017    794
+#2018    821
+#2019    388
+#total   4603
+
+]
+# nr of papers with supplementary files
+exec cg cat result_per_paper.tsv | cg select -g year -q {def($nr_suppfiles,0) > 0}
+#year    count
+#2010    2174
+#2011    2890
+#2012    4807
+#2013    4411
+#2014    5497
+#2015    6027
+#2016    5899
+#2017    5813
+#2018    5268
+#2019    2161
+#all     44947
+
+# nr of papers with supplementary files with genelists
+exec cg cat result_per_paper.tsv | cg select -g year -q {$has_genelist}
+#year    count
+#2010    253
+#2011    448
+#2012    758
+#2013    911
+#2014    1237
+#2015    1376
+#2016    1676
+#2017    1817
+#2018    1795
+#2019    789
+#all     11060
+
+# nr of papers with supplementary files with genelists and errors
+exec cg cat result_per_paper.tsv | cg select -g year -q {$has_error}
+#year    count
+#2010    93
+#2011    99
+#2012    183
+#2013    243
+#2014    320
+#2015    434
+#2016    613
+#2017    565
+#2018    616
+#2019    286
+#all     3452
+
+}
