@@ -242,7 +242,7 @@ Sep7 , 3:00 AM	0
 # original input, such as leading/trailing spaces, equals sings,
 # enclosing double quotes, and nested occurances of these
 "SEP7	0
-"SEP7"	1
+"SEP7"	0
 ""SEP7""	1
 Sep7 	0
  Sep7	0
@@ -253,4 +253,4 @@ Sep7 	0
 
 # This final example must be listed last, since it will cause Excel to
 # parse all lines after this line in "unexpected" ways
-"SEP7""	0
+"SEP7""	1

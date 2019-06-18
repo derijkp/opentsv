@@ -6,6 +6,8 @@ source tools.tcl
 
 settings method numeric
 settings sepmethod allwaysauto
+settings numformat dpoint
+numformat dpoint
 
 test opentsv {issafenum} {
 	list [issafenum 0] [issafenum 0.1] [issafenum 10] [issafenum 1.10] [issafenum 0] [issafenum 0] \
@@ -129,7 +131,7 @@ test opentsv {GSE6857_series_matrix.txt.gz} {
 	expr {$result == $expected}
 } 1
 
-test opentsv {comma only accepts decimal point} {
+test opentsv {comma separated, numformat dpoint (default)} {
 	file_write tmp/test.csv [deindent {
 		a,b,c
 		1,1,"1,0"
@@ -138,14 +140,14 @@ test opentsv {comma only accepts decimal point} {
 	analyse_file tmp/test.csv numeric {} {}
 } {comma {{1 2} {2 1} {3 2}}}
 
-test opentsv {semicolon accepts both decimal comma and point} {
+test opentsv {semicolon separated, numformat dpoint} {
 	file_write tmp/test.csv [deindent {
 		a;b;c
 		a;1;1.0
 		b;2,0;2.0
 	}]\n
-	analyse_file tmp/test.csv numeric {} {}
-} {semicolon {{1 2} {2 1} {3 1}}}
+	analyse_file tmp/test.csv numeric {} {} dpoint
+} {semicolon {{1 2} {2 2} {3 1}}}
 
 test opentsv {space separator} {
 	file_write tmp/test.csv [deindent {
@@ -155,6 +157,42 @@ test opentsv {space separator} {
 	}]\n
 	analyse_file tmp/test.csv numeric {} {}
 } {space {{1 2} {2 1} {3 2}}}
+
+test opentsv {numformat dpoint} {
+	file_write tmp/test.csv [deindent {
+		a	b	c	d	e	f	g
+		1	1	1,0	1.000,1	1	1,000	1.000
+		0	2.0	2	2	2,000.1	1,102,102.1	1.102.102,1
+	}]\n
+	analyse_file tmp/test.csv numeric {} {} dpoint
+} {tab {{1 1} {2 1} {3 2} {4 2} {5 2} {6 2} {7 2}}}
+
+test opentsv {numformat dcomma} {
+	file_write tmp/test.csv [deindent {
+		a	b	c	d	e	f	g
+		1	1	1,0	1.000,1	1	1,000	1.000
+		0	2.0	2	2	2,000.1	1,102,102.1	1.102.102,1
+	}]\n
+	analyse_file tmp/test.csv numeric {} {} dcomma
+} {tab {{1 1} {2 2} {3 1} {4 2} {5 2} {6 2} {7 2}}}
+
+test opentsv {numformat dpointthousand} {
+	file_write tmp/test.csv [deindent {
+		a	b	c	d	e	f	g
+		1	1	1,0	1.000,1	1	1,000	1.000
+		0	2.0	2	2	2,000.1	1,102,102.1	1.102.102,1
+	}]\n
+	analyse_file tmp/test.csv numeric {} {} dpointthousand
+} {tab {{1 1} {2 1} {3 2} {4 2} {5 1} {6 1} {7 2}}}
+
+test opentsv {numformat dcommathousand} {
+	file_write tmp/test.csv [deindent {
+		a	b	c	d	e	f	g
+		1	1	1,0	1.000,1	1	1,000	1.000
+		0	2.0	2	2	2,000.1	1,102,102.1	1.102.102,1
+	}]\n
+	analyse_file tmp/test.csv numeric {} {} dcommathousand
+} {tab {{1 1} {2 2} {3 1} {4 1} {5 2} {6 2} {7 1}}}
 
 test opentsv {issafe} {
 	set o [open tmp/result.tsv w]

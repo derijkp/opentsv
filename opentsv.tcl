@@ -60,7 +60,11 @@ comma-separated, use "save as".
 Opentsv will also solve the problem that for users in some locales using a
 decimal comma, Excel assumes a semicolon as the delimiter for csv files
 (contrary to rfc4180) and refuses to load properly formatted csv files
-(without changing the locale).
+(without changing the locale). With the convert numerical columns, the default
+only allows conversion of columns containing only numbers with a decimal
+point and no thousands seperators. You can change the recognized number format,
+but have to make sure it is adapted to your locale, or conversion can produce 
+errors.
 
 For opening csv files properly, a hack was needed: The parameters used for
 opening files with the extension .csv seem to be hard-coded in Excel: It
@@ -196,7 +200,8 @@ proc settings {what {value {}}} {
 	}
 	if {[llength $settings] == 1} {lappend settings auto}
 	if {[llength $settings] == 2} {lappend settings 1}
-	set pos [lsearch {method sepmethod copycsv} $what]
+	if {[llength $settings] == 3} {lappend settings dpoint}
+	set pos [lsearch {method sepmethod copycsv numformat} $what]
 	if {$value eq ""} {
 		return [lindex $settings $pos]
 	} else {
@@ -321,16 +326,40 @@ proc issafe {el} {
 	return 1
 }
 
-proc issafenum {el} {
-	if {$el eq "0"} {return 1}
-	regexp {^[0-9]*\.?[0-9]*$} $el
+proc numformat numformat {
+	if {$numformat eq "dpoint"} {
+		proc issafenum {el} {
+			if {$el eq "0"} {return 1}
+			regexp {^[0-9]*\.?[0-9]*$} $el
+		}
+	} elseif {$numformat eq "dcomma"} {
+		proc issafenum {el} {
+			if {$el eq "0"} {return 1}
+			regexp {^[0-9]*[,]?[0-9]*$} $el
+		}
+	} elseif {$numformat eq "dpointthousand"} {
+		proc issafenum {el} {
+			if {$el eq "0"} {return 1}
+			if {[regexp {^[0-9]*[.]?[0-9]*$} $el]} {return 1}
+			regexp {^[0-9]+(,[0-9][0-9][0-9])*[.]?[0-9]*$} $el
+		}
+	} elseif {$numformat eq "dcommathousand"} {
+		proc issafenum {el} {
+			if {$el eq "0"} {return 1}
+			if {[regexp {^[0-9]*[,]?[0-9]*$} $el]} {return 1}
+			regexp {^[0-9]+(\.[0-9][0-9][0-9])*[,]?[0-9]*$} $el
+		}
+	} else {
+		error "unknown numformat option $numformat"
+	}
 }
+numformat dpoint
 
 proc isnumeric {el} {
 	string is double $el
 }
 
-proc analyse_file {file method sepmethod type} {
+proc analyse_file {file method sepmethod type {numformat dpoint}} {
 	set numtestlines 1000
 	unset -nocomplain numa
 	set f [open $file]
@@ -368,17 +397,7 @@ proc analyse_file {file method sepmethod type} {
 	set xlGeneralFormat	[expr 1]
 	set xlTextFormat [expr 2]
 	if {$method eq "numeric"} {
-		if {$type eq "semicolon"} {
-			proc issafenum {el} {
-				if {$el eq "0"} {return 1}
-				regexp {^[0-9]*[,.]?[0-9]*$} $el
-			}
-		} else {
-			proc issafenum {el} {
-				if {$el eq "0"} {return 1}
-				regexp {^[0-9]*\.?[0-9]*$} $el
-			}
-		}
+		numformat $numformat
 		# first line may be a header: set all columns to numeric to start
 		unset -nocomplain numa
 		set pos 1
@@ -464,6 +483,7 @@ proc opentsv {file} {
 	set method [settings method]
 	set sepmethod [settings sepmethod]
 	set copycsv [settings copycsv]
+	set numformat [settings numformat]
 	set TRUE 1
 	set FALSE 0
 	if {$TRUE} {}
@@ -497,7 +517,7 @@ proc opentsv {file} {
 		}
 	}
 	# analyse file
-	foreach {type fieldinfo} [analyse_file $file $method $sepmethod $type] break
+	foreach {type fieldinfo} [analyse_file $file $method $sepmethod $type $numformat] break
 	if {$type eq "tab"} {
 		set tab $TRUE ; set comma $FALSE ; set semicolon $FALSE ; set space $FALSE
 	} elseif {$type eq "comma"} {
@@ -528,6 +548,7 @@ proc interface {} {
 	set ::method [settings method]
 	set ::sepmethod [settings sepmethod]
 	set ::copycsv [settings copycsv]
+	set ::numformat [settings numformat]
 	# interface if no file is give
 	package require Tk
 	wm title . Opentsv
@@ -539,7 +560,7 @@ proc interface {} {
 	label .msglabel -text "Opentsv description"
 	pack .msglabel -side top -fill x
 	frame .msg
-	text .msg.t -yscrollcommand {.msg.s set} -height 15
+	text .msg.t -yscrollcommand {.msg.s set} -height 8
 	.msg.t insert end [string trim $::help]
 	scrollbar .msg.s -command {.msg.t yview}
 	pack .msg.t -side left -fill both -expand yes
@@ -575,6 +596,7 @@ proc interface {} {
 			-command [list settings method $name]
 		pack .settings.$name -side top -fill y -anchor w
 	}
+	#
 	frame .settings2
 	pack .settings2 -side top -fill x
 	label .settings2.method -text "Separator"
@@ -592,6 +614,23 @@ proc interface {} {
 			-command [list settings sepmethod $name]
 		pack .settings2.$name -side top -fill y -anchor w
 	}
+	#
+	frame .settingsnumformat
+	pack .settingsnumformat -side top -fill x
+	label .settingsnumformat.numformat -text "Number format"
+	pack .settingsnumformat.numformat -side left -anchor n
+	foreach {name descr ldescr} {
+		dpoint "1000.1" "only decimal point without thousands separators are recognized as numbers"
+		dpointthousand "1,000.1" "decimal point with thousands separators, use in wrong locale (decimal comma) may lead to conversion errors"
+		dcomma "1000,1" "decimal comma without thousands separators, use in wrong locale (decimal point) may lead to conversion errors"
+		dcommathousand "1.000,1" "decimal comma with thousands separators, use in wrong locale (decimal point) may lead to conversion errors"
+	} {
+		radiobutton .settingsnumformat.$name -text "$descr: $ldescr" \
+			-variable numformat -value $name \
+			-command [list settings numformat $name]
+		pack .settingsnumformat.$name -side top -fill y -anchor w
+	}
+#	#
 #	checkbutton .copycsv -justify left -anchor w -text "Locale hack: Copy csv to tcsv first (so it can be opened using commas in locales using an other delimiter)" \
 #		-variable copycsv \
 #		-command "settings copycsv \$::copycsv"
