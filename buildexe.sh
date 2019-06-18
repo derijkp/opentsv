@@ -5,7 +5,7 @@ export kitdir=$opentsvdir/kit
 
 echo "---------- Make opentsv kit ----------"
 cd $kitdir
-cp $opentsvdir/opentsv.tcl $opentsvdir/res/tclkit.inf opentsv.vfs
+cp $opentsvdir/opentsv.tcl $opentsvdir/res/tclkit.inf $opentsvdir/res/ico/tclkit.ico opentsv.vfs
 echo '' > $kitdir/opentsv.vfs/MANIFEST
 cd $kitdir
 rm opentsv.exe || true
