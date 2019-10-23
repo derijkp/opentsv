@@ -10,7 +10,7 @@ Excel without this conversion/corruption of data.
 Use
 ---
 Download the binary opentsv release:
-[opentsv](https://github.com/derijkp/opentsv/releases/download/v1.0/opentsv.exe)
+[opentsv](https://github.com/derijkp/opentsv/releases/download/v1.1/opentsv.exe)
 Starting the downloaded program without a file gives you this
 settings/installation screen. This program does not have to be installed:
 You can use it directly by using the "Open file" or by dragging a file
