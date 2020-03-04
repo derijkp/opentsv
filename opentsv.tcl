@@ -25,6 +25,8 @@ exec tclsh "$0" ${1+"$@"}
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 
+set version 1.1.1
+
 set help {
 Short description
 -----------------
@@ -580,7 +582,7 @@ proc interface {} {
 	. configure -padx 4 -pady 4
 	#
 	# help
-	label .msglabel -text "Opentsv description"
+	label .msglabel -text "Opentsv $::version description"
 	pack .msglabel -side top -fill x
 	frame .msg
 	text .msg.t -yscrollcommand {.msg.s set} -height 8

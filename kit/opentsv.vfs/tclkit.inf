@@ -1,10 +1,10 @@
 FileDescription "Opentsv"
-FileVersion 1.2
+FileVersion 1.1.1
 LegalCopyright "Copyright (c) 2017 Peter De Rijk (VIB/UAntwerpen)"
 ProductName "Opentsv"
 OriginalFilename "opentsv.exe"
 CompanyName "VIB/UAntwerpen"
 ProductName "opentsv"
-ProductVersion "1.2"
+ProductVersion "1.1.1"
 Comments "Comments"
 FileDescription "Open tsc/csv files with Excel"
