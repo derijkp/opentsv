@@ -14,13 +14,17 @@ test opentsv {issafenum} {
 		[issafenum e1] [issafenum a] [issafenum 1,1] [issafenum 1x1]
 } {1 1 1 1 1 1 0 0 0 0}
 
-test opentsv {data.tsv} {
+test opentsv {opentsv.tcl data.tsv} {
 	exec ../opentsv.tcl data/data.tsv
 } {workbooks -namedarg OpenText Filename */data.tsv DataType 1 Comma 0 Tab 1 Semicolon 0 Space 0 TextQualifier 1 FieldInfo {{1 2} {2 2} {3 2} {4 1} {5 1} {6 1}}} match
 
-test opentsv {problems.tsv} {
+test opentsv {opentsv.tcl problems.tsv} {
 	exec ../opentsv.tcl data/problems.tsv
 } {workbooks -namedarg OpenText Filename */problems.tsv DataType 1 Comma 0 Tab 1 Semicolon 0 Space 0 TextQualifier 1 FieldInfo {{1 2} {2 2}}} match
+
+test opentsv {opentsv.tcl data/na4numbers.tsv} {
+	exec ../opentsv.tcl data/na4numbers.tsv
+} {workbooks -namedarg OpenText Filename /home/peter/dev/opentsv/tests/data/na4numbers.tsv DataType 1 Comma 0 Tab 1 Semicolon 0 Space 0 TextQualifier 1 FieldInfo {{1 2}}} match
 
 test opentsv {emptyline} {
 	file_write tmp/test.tsv [deindent {

@@ -363,6 +363,7 @@ proc isnumeric {el} {
 
 proc probsep {line} {
 	set count [llength [split $line \t]]
+	set type tab
 	if {$count > 1} {
 		# tab is very unlikely to be present if it is not the separator, so prefer this
 		set type tab
