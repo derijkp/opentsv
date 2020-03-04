@@ -1,0 +1,8 @@
+"allowed values"
+" - modification"	"a5"	"a3"
+" - purification"	""	"hplc"	"lyo"	"oli"	"seph"	"iehpl"	"rhplc"	"rnahp"
+" - project"	"test"
+" - pair"	"1"	"0"	""
+
+
+"primer"	"label"	"sequence"	"modification"	"scale"	"purification"	"project"

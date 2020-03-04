@@ -1,0 +1,8 @@
+type	seqn
+project	
+description	
+owner	
+notes	
+
+sample		pcr										pcr_product					seqn						seqn_template				seqn_run	single_read
+individual	sample	plate	well	operator	time	sprimer1	sprimer2	temperature	taq	machine	purification	label	id	plate	well	length	plate	well	operator	time	sprimer	protocol	label	id	plate	well	protocol	label

@@ -359,6 +359,26 @@ proc isnumeric {el} {
 	string is double $el
 }
 
+proc probsep {line} {
+	set count [llength [split $line \t]]
+	if {$count > 1} {
+		# tab is very unlikely to be present if it is not the separator, so prefer this
+		set type tab
+	} else {
+		set tempcount [llength [split $line ,]]
+		if {$tempcount > $count} {set count $tempcount; set type comma}
+		set tempcount [llength [split $line \;]]
+		if {$tempcount > $count} {set count $tempcount; set type semicolon}
+		if {$count == 1} {
+			# space may occur a lot in the values
+			# only try space if the others fail
+			set tempcount [llength [split $line " "]]
+			if {$tempcount > $count} {set count $tempcount; set type space}
+		}
+	}
+	return [list $type $count]
+}
+
 proc analyse_file {file method sepmethod type {numformat dpoint}} {
 	set numtestlines 1000
 	unset -nocomplain numa
@@ -371,25 +391,28 @@ proc analyse_file {file method sepmethod type {numformat dpoint}} {
 		if {$first ne "\#" && $first ne "\!"} break
 		lappend comments $line
 	}
+	set fpos [tell $f]
 	# Determine type
 	if {$sepmethod in "comma tab semicolon space"} {
 		set type $sepmethod
 	} elseif {$type eq ""} {
-		set type tab
-		set count [llength [split $line \t]]
-		if {$count > 1} {
-			# tab is very unlikely to be present if it is not the separator, so prefer this
-			set type tab
-		} else {
-			set tempcount [llength [split $line ,]]
-			if {$tempcount > $count} {set count $tempcount; set type comma}
-			set tempcount [llength [split $line \;]]
-			if {$tempcount > $count} {set count $tempcount; set type semicolon}
-			if {$count == 1} {
-				# space may occur a lot in the values, only try space if the others are not present
-				set tempcount [llength [split $line " "]]
-				if {$tempcount > $count} {set count $tempcount; set type space}
+		foreach {type count} [probsep $line] break
+		if {$type eq "space"} {
+			# space may occur a lot in the values
+			# only use space if the others fail, so test other lines as well (maybe still some kind of header)
+			set numtests 50 
+			while 1 {
+				if {[gets $f tline] == -1} break
+				foreach {ttype tcount} [probsep $tline] break
+				if {$ttype ne "space"} {
+					set type $ttype
+					set count $tcount
+					break
+				}
+				if {![incr numtests -1]} break
 			}
+			# reset file
+			seek $f $fpos
 		}
 	}
 	set line [splitline $line $type]
